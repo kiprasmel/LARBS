@@ -1,0 +1,26 @@
+:checkhealth provider
+
+# python
+
+:help provider-python
+sudo pacman -S python-pip
+sudo pip3 install --upgrade pynvim
+sudo pacman -S python2-pip
+sudo pip2 install --upgrade pynvim
+
+# nodejs
+
+npm i -g neovim
+
+# verify
+:checkhealth
+
+# install some stuff
+sudo pacman -S cmake rust go
+
+# cd to the directory you downloaded `YouCompleteMe` to
+# (might be different)
+# read more at https://github.com/Valloric/YouCompleteMe
+cd ~/.vim/plugged/YouCompleteMe
+
+./install.py --clang-completer --go-completer --rust-completer --ts-completer

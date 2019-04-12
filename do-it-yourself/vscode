@@ -1,0 +1,5 @@
+sed -i 's#"bin/code"#"/bin/code"#g' ~/.vscode-oss/extensions/shan.code-settings-sync-*/out/extension.js
+
+# restart vscode
+
+printf "\nRestart vscode for changes to apply\n"
