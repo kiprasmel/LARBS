@@ -1,0 +1,14 @@
+https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-change://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
+
+https://stackoverflow.com/a/3320183
+
+essencially,
+
+```bash
+git add <filename>
+git commit
+git update-index --skip-worktree <filename>
+```
+
+Changes to <filename> will no longer be tracked.
+You can now, for example, remove the file, but git won't track that.
