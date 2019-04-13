@@ -97,7 +97,4 @@ A,nerd-fonts-complete,"gives you even more dank fonts. more at https://aur.archl
 ,neomutt,"is required for mutt-wizard"
 ,offlineimap,"is required for mutt-wizard"
 ,msmtp,"is required for mutt-wizard"
-
-
-
-
+,numlockx,"allows you to turn on num lock on startup. more at https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup#startx"
