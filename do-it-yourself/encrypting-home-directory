@@ -1,0 +1,105 @@
+Read
+* https://wiki.archlinux.org/index.php/Disk_encryption
+
+Most important from the above:
+* https://wiki.archlinux.org/index.php/Disk_encryption#Available_methods
+* https://wiki.archlinux.org/index.php/Disk_encryption#Comparison_table
+	* Focus mostly on dm-crypt +/- LUKS; eCryptsfs; EncFS;
+* https://wiki.archlinux.org/index.php/Disk_encryption#Preparation
+* https://wiki.archlinux.org/index.php/Disk_encryption#Examples
+* https://wiki.archlinux.org/index.php/Disk_encryption#Preparing_the_disk
+* or just read everything 😎
+
+Encrypting $HOME directory with eCryptsfs:
+https://wiki.archlinux.org/index.php/ECryptfs
+
+just read everything
+before starting, take a look at the Contents table again.
+
+---
+
+I used
+https://wiki.archlinux.org/index.php/ECryptfs#Encrypting_a_home_directory
++
+https://wiki.archlinux.org/index.php/ECryptfs#Auto-mounting
+
+---
+
+essencially:
+
+* log out
+* login as root
+* run this command to kill all processes of the user
+```bash
+killall -u <username-that-you-want-to-encrypt>
+```
+
+* verify that the user doesn't own any processes (you return no processes)
+```bash
+ps -U <username-that-you-want-to-encrypt>
+```
+
+* install required tools (assuming arch)
+
+```bash
+sudo pacman -S rsync lsof ecryptfs-utils
+```
+
+* prepare for encryption & start it (this will take A WHILE (I left my PC overnight))
+
+```bash
+modprobe ecryptfs
+ecryptfs-migrate-home -u <username-that-you-want-to-encrypt>
+```
+
+* after that - follow the instructions.
+
+	* I had to do the following (auto unmounting failed after encryption):
+
+((NOT SURE ABOUT THIS PART - only do it if the instructions tell you that unmounting failed))
+```bash
+killall -u kipras
+umount /home/kipras
+```
+
+	* then, if instructions tell you that you can `keyctl unlink`, do the following:
+
+```bash
+keyctl show
+```
+
+	* select a keyring's session (first parameter probably) (you might need to try them all) & run
+```bash
+keyctl unlink <the-session-id>
+```
+	>>> do this until you get at least 1 key removed
+
+---
+
+* next - precisely follow the auto-mounting setup (untill ecryptfs-simple):
+	https://wiki.archlinux.org/index.php/ECryptfs#Auto-mounting
+
+---
+
+* login as the user who's directory has been encrypted
+* verify that everything is working
+* log out and log in as root.
+	* verify that the output of `mount` does NOT contain a mountpoint with your username
+```bash
+mount | grep <username-you-encrypted>
+```
+
+	>>> should NOT return a mount point
+
+	* cd to the <username-you-encrypted>
+	* make sure that you files are NOT present and that a readme exists, explaining the encryption
+
+* log out, log back in as <username-you-encrypted>
+* verify that files are accessable & that `mount | grep <username-you-encrypted>` DOES have a mountpoint
+
+>>> it works!
+
+---
+
+Once everything is working, the unencrypted backup of the users home directory,
+which is saved to /home/username.random_characters, can and should be deleted.
