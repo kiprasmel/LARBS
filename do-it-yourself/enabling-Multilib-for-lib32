@@ -1,0 +1,11 @@
+https://wiki.archlinux.org/index.php/Steam
+just read the docs
+
+in
+/etc/pacman.conf
+
+uncomment
+
+#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+
