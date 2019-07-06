@@ -1,0 +1,11 @@
+It requires that you install arduino from the official website (arch package does not work)
+
+After downloading the arduino.tar.xz, extracting it and running the install.sh script,
+also make sure to move the arduino-x.y.z folder to /usr/share/arduino !
+
+This then allows you to select the /usr/share/arduino folder and the installer works!
+
+
+also, run this:
+
+sudo ln -s /usr/share/arduino/hardware/arduino/ /usr/share/arduino/hardware/archlinux-arduino
