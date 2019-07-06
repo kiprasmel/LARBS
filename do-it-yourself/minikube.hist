@@ -1,0 +1,103 @@
+sp -S minikube
+#1557694223
+minikube
+#1557694256
+minikube --help
+#1557694263
+minikube start
+#1557694305
+minikube start --vm-driver=none
+#1557694362
+sudo minikube
+#1557694384
+ll
+#1557694387
+./.minikube/
+#1557694387
+ll
+#1557694364
+sudo minikube start
+#1557694438
+minikube start
+#1557694549
+rm -rf .minikube/
+#1557694554
+minikube start
+#1557694593
+rm -rf .minikube/
+#1557694598
+minikube start --vm-driver=none
+#1557694614
+sp -S virtualbox
+#1557694721
+LC_ALL=C lscpu | grep Virtualization
+#1557694725
+grep -E --color=auto 'vmx|svm|0xc0f' /proc/cpuinfo
+#1557694742
+zgrep CONFIG_KVM /proc/config.gz
+#1557694748
+zgrep CONFIG_KVM /proc/config.gz
+#1557694786
+lsmod | grep kvm
+#1557694811
+zgrep VIRTIO /proc/config.gz
+#1557694814
+lsmod | grep virtio
+#1557694843
+rm -rf .minikube/
+#1557694847
+minikube start
+#1557694902
+virtualbox
+#1557694910
+sudo /sbin/vboxconfig
+#1557694925
+/sbin/vboxconfig
+#1557694971
+modprobe vboxdrv
+#1557694975
+sudo modprobe vboxdrv
+#1557694982
+virtualbox
+#1557694989
+rm -rf .minikube/
+#1557694991
+minikube start
+#1557695087
+modprobe -a vboxguest vboxsf vboxvideo
+#1557695090
+sudo modprobe -a vboxguest vboxsf vboxvideo
+#1557695096
+minikube start
+#1557695129
+vboxreload
+#1557695132
+sudo vboxreload
+#1557695137
+sudo vboxreload
+#1557695141
+minikube start
+#1557695615
+reboot
+#1557695692
+minikube start
+#1557696022
+minikube delete
+#1557696168
+modprobe -r kvm_intel
+#1557696170
+sudo modprobe -r kvm_intel
+#1557696181
+sudo modprobe kvm_intel nested=1
+#1557696193
+modprobe kvm_intel nested=1
+#1557696198
+systool -m kvm_intel -v | grep nested
+#1557696208
+sv /etc/modprobe.d/kvm_intel.conf
+#1557696211
+sv /etc/modprobe.d/kvm_intel.conf
+#1557696228
+systool -m kvm_intel -v | grep nested
+#1557696026
+minikube start

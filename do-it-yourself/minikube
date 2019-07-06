@@ -1,0 +1,23 @@
+# install kubectl
+# there's probably just a binary available for downloading
+# ...
+
+# install virtualbox
+sudo pacman -S virtualbox
+# select 2
+
+# reload
+modprobe vboxdrv
+
+# reboot
+reboot
+
+# remove old ~/.minikube
+rm -rf ~/.minikube
+
+# delete old
+minikube delete
+
+# start new fresh
+minikube start
+
