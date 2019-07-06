@@ -122,3 +122,5 @@ A,nerd-fonts-complete,"gives you even more dank fonts. more at https://aur.archl
 ,libsecret,"is a tool that allows applications to use your keyrings",
 ,nmap,"is a dank networking tool"
 ,openssh,"is a set of computer programs providing encrypted communication sessions over a computer network using the Secure Shell (SSH) protocol"
+,pulseaudio-bluetooth,"provides pulseaudio's bluetooth interface / compatibility?"
+A,bluez-utils-compat,"provides now deprecated but more useful & necessary utils for bluetooth"

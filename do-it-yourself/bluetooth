@@ -1,0 +1,122 @@
+EDIT - see the "REVAMP" section - it works lol
+
+---
+
+It's actually broken..
+
+---
+
+take a look at ~/larbs/progs.csv
+
+sudo pacman -S bluez bluez-utils pulseaudio-bluetooth
+
+---
+
+.Failed error:
+
+pactl load-module module-bluetooth-discover
+
+#https://wiki.archlinux.org/index.php/Bluetooth_headset#Pairing_works,_but_connecting_does_not
+
+or pulseaudio -k && pulseaudio --start -v
+
+```
+pactl load-module module-bluetooth-discover
+```
+
+note - the first time it actually worked was when I ran `bluetoothctl` as root (`sudo su`)
+
+edit: it works without root
+
+---
+
+this fixed my shit:
+
+https://askubuntu.com/a/689297
+
+---
+
+if `bluetoothctl` doesnt start - enable & start bluetooth service & check it's status:
+
+```
+sudo systemctl enable bluetooth --now
+sudo systemctl status bluetooth
+```
+
+pulseaudio -k
+
+thank god for https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/troubleshoot/faq
+
+if you get an error `Failed to start discovery: org.bluez.Error.NotReady`,
+just do inside `bluetoothctl`:
+```
+power off
+power on
+```
+
+---
+
+connects and disconnects?
+
+Then restart bluetooth.service, turn on your bluetooth adapter, make your device discoverable, re-scan for devices, and re-pair your device. Depending on your bluetooth manager, you may need to perform a full reboot in order to re-discover the device.
+
+---
+
+protocol not available
+https://wiki.archlinux.org/index.php/Bluetooth_headset
+
+---
+
+consider loading the modules by default https://wiki.archlinux.org/index.php/Bluetooth_headset#Pairing_works,_but_connecting_does_not
+
+-----
+
+REVAMP @ 2019-07-06
+
+I finally got it working!
+
+There was a lot of searching involved; I've backed up my tabs in chrome's sessions @ arch/pulseaudio-bluetooth-fix
+I also saved the bash history into a file available here.
+
+Main things *I think* that helped (I did A LOT of stuff)
+(See the STOW dotfiles -> pulseaudio/etc/pulse)
+
+Since I'm dual-booting w/ Windows, I have previously paired the same device
+in windows, so now I went ahead an removed it
+(recommended @ arch-wiki somewhere about bluetooth / bluetooth-headset / pulseaudio (see chrome tabs))
+
+sudo pacman -S pulseaudio-bluetooth
+pactl load-module module-bluetooth-discover
+
+pulseaudio -k
+pulseaudio --start
+
+sudo -s
+bluetoothctl
+-> pair, connect
+
+might try out
+
+sudo rfcomm connect rfcomm0 00:14:BE:A4:0C:D4 # replace 00:14... with the MAC address of the device
+
+(this would allow the device to stay connected,
+but the device wouldn't show up in pavucontrol,
+you couldn't play audio to it / hear from it)
+
+Also, I installed & configured some stuff w/ Alsa,
+and that probably helped too since the headset had
+an Alsa word near it in pavucontrol.
+
+You'll know that it works once the device shows up in `pavucontrol`
+
+I also installed `bluez-utils-compat` form the AUR
+
+yay -S bluez-utils-compat # this didn't work
+
+-> I manually built it with --nocheck flag since that's what the comments suggested currently
+
+git clone https://aur.archlinux.org/bluez-utils-compat.git
+cd bluez-utils-compat
+makepkg -sifL --nocheck
+
+---
