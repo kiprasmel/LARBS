@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo systemctl enable openssh --now
+echo "do this yourself:"
+echo 'sudo echo "AllowUsers $USER" >> /etc/ssh/sshd_config'
