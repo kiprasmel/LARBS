@@ -128,3 +128,5 @@ A,nerd-fonts-complete,"gives you even more dank fonts. more at https://aur.archl
 ,pulseaudio-bluetooth,"provides pulseaudio's bluetooth interface / compatibility?"
 A,bluez-utils-compat,"provides now deprecated but more useful & necessary utils for bluetooth"
 ,ponymix,"provides a cli for pulseaudio"
+,syncthing,"is an awesome open-source syncing utility"
+
