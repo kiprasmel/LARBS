@@ -4,5 +4,5 @@
 !progs.csv
 !README.md
 !do-it-yourself/
-!do-it-yourself/*
+!do-it-yourself/**
 !testing/*
