@@ -1,0 +1,15 @@
+#!/system/bin/sh
+# remote-lock-screen-adnroid-script
+
+lock-remote-screen() {
+	ssh screenlockuser@lockable-remote 'bash ~/screenlock' && {
+		printf "==> success\n"
+		return 0
+	} || {
+		printf "==> failure\n"
+		return 1
+	}
+}
+
+lock-remote-screen && exit 0 || exit 1
+
