@@ -88,9 +88,38 @@ ssh screenlockuser@<IP_OF_MACHINE_YOU_WANT_TO_ACCESS> -X
 # set display the same as your user from which you ran the 'xhost +SI:localuser:screenlockuser' command
 export DISPLAY=:0
 
-# do stuff
+# try it out
 i3lock
 ```
+
+## Does it work?
+
+No? Too bad, go wonder -- do some debugging and if all else fails - create an issue.
+
+If yes, then let's make a script that automates the screen locking process
+and also does a couple more thingies that are useful.
+
+Copy the 'screenlock' script provided here to screenlockuser's ~/.scripts/
+
+```sh
+sudo mkdir -pv /home/screenlockuser/.scripts/
+sudo cp screenlock-remote-lock-screen /home/screenlockuser/.scripts/screenlock
+sudo chmod +x /home/screenlockuser/.scripts/screenlock
+```
+
+then proceed to edit `/etc/sudoers` via `visudo`:
+
+```sh
+sudo visudo
+```
+
+and add these lines at the bottom of the file:
+
+```
+%screenlockuser ALL=(ALL) NOPASSWD: /usr/bin/pkill -USR1 --exact dunst --euid 1000, /usr/bin/pkill -USR2 --exact dunst --euid 1000, /usr/bin/loginctl lock-sessions
+```
+
+(assuming the `screenlockuser` group exists (by default, it does when we created the user, unless ya did something with it.)
 
 ## See also
 
