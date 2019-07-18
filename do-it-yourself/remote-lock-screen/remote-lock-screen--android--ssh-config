@@ -1,0 +1,8 @@
+Host lockable-remote
+	HostName				<YOUR_HOSTNAME_IP (see "ifconfig"s "wlo1")>
+	User					screenlockuser
+	IdentityFile			~/.ssh/id_rsa
+	ForwardAgent			yes
+	ForwardX11				yes
+	ForwardX11Trusted		yes
+
