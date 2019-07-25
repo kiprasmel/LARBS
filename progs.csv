@@ -131,3 +131,9 @@ A,bluez-utils-compat,"provides now deprecated but more useful & necessary utils 
 ,syncthing,"is an awesome open-source syncing utility"
 ,ufw,"is an uncomplicated firewall"
 ,xorg-xhost,"is used for the 'runaswine' script"
+A,mongodb-bin,"is a binary for mongodb."
+A,mongodb-tools,"provide useful mongodb tools"
+A,debtap,"allows you to convert packages from debian to arch"
+,wine,"is a dank util to allow you to port stuff from other OSes to linux"
+,winetricks,"are some winey tricks! aka 'is a script to allow one to install base requirements needed to run Windows programs.'"
+
