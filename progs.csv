@@ -98,7 +98,7 @@ A,nvm,"is a node version manager for nodejs"
 A,nerd-fonts-complete,"gives you even more dank fonts. more at https://aur.archlinux.org/nerd-fonts-complete.git"
 ,dialog,"is required for mutt-wizard"
 ,neomutt,"is required for mutt-wizard"
-,isync,"is required for mutt-wizard",
+,isync,"is required for mutt-wizard"
 ,msmtp,"is required for mutt-wizard"
 ,w3m,"helps view html images & email in neomutt"
 ,notmuch,"is for neomutt"
@@ -121,8 +121,8 @@ A,nerd-fonts-complete,"gives you even more dank fonts. more at https://aur.archl
 ,virtualbox,"is used for minikube & other virtualization stuff"
 ,jdk8-openjdk,"is used for java (& react native) development"
 ,gdb,"is a debugger!"
-,gnome-keyring,"is a collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications.",
-,libsecret,"is a tool that allows applications to use your keyrings",
+,gnome-keyring,"is a collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications."
+,libsecret,"is a tool that allows applications to use your keyrings"
 ,nmap,"is a dank networking tool"
 ,openssh,"is a set of computer programs providing encrypted communication sessions over a computer network using the Secure Shell (SSH) protocol"
 ,pulseaudio-bluetooth,"provides pulseaudio's bluetooth interface / compatibility?"
