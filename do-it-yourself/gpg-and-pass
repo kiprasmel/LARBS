@@ -1,0 +1,6 @@
+See https://bbs.archlinux.org/viewtopic.php?id=208059
+
+> Thanks for the response.  I saw that too in the wiki and didn't have "allow-loopback-pinentry" in gpg.conf but it still gave the same error.  The only fix that worked for me was to edit the actual /usr/bin/pass to omit the "--batch" option.
+
+=> remove `"--batch"` option from /usr/bin/pass
+
