@@ -1,0 +1,12 @@
+First, this:
+https://www.maketecheasier.com/play-sound-through-multiple-devices-linux/
+
+-> enable simultaneous, dual playback settings for pulse-audio throught `paprefs`
+
+Second:
+https://askubuntu.com/a/78179/916353
+
+-> Using `pavucontrol-qt`, go to `playback` tab and select some playback to output to `Simultaneous output to ...`
+
+Boom, that's it!
+
