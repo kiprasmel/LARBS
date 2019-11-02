@@ -1,0 +1,19 @@
+https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#Unmuting_the_channels
+
+: 1572701054:0;sp -S alsa-utils
+: 1572701074:0;amixer
+: 1572701129:0;amixer sset Master unmute
+: 1572701136:0;amixer sset Speaker unmute
+: 1572701143:0;amixer sset Headphone unmute
+: 1572701147:0;alsamixer
+: 1572701154:0;alsamixer
+: 1572701224:0;sp -S alsa-firmware
+: 1572701251:0;sp -S alsa-plugins
+: 1572701266:0;sp -S alsa-oss
+: 1572701345:0;journalctl
+: 1572701403:0;reboot
+: 1572701990:0;alsamixer
+: 1572702081:0;speaker-test -c 2
+: 1572702092:0;speaker-test -c 8
+: 1572705349:0;l
+
