@@ -1,1 +1,6 @@
+First try disabling the firewall to see if that helps.
+
+If it does, add this rule (change the ip & port to the one you're using obv.)
+
+
 sudo ufw allow to 192.168.8.119 port 3000,5000 proto tcp
