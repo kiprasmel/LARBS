@@ -162,3 +162,8 @@ A,platformio,"is a cross-platform code builder and library manager (I use it for
 ,xbindkeys,"is a program that allows to bind commands to certain keys or key combinations on the keyboard"
 ,bat,"is a cat clone with syntax highlighting and git integration"
 ,ripgrep,"is a search tool that combines the usability of ag with the raw speed of grep"
+,cppcheck,"is a tool for static C/C++ code analysis"
+,steam,"is steam"
+,steam-native,""
+,lib32-nvidia-utils,"are utils for steam. see https://github.com/ValveSoftware/steam-for-linux/issues/6399#issuecomment-512867551"
+,diff-so-fancy,"provides some fancy diffs!"
