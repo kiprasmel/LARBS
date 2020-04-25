@@ -1,0 +1,19 @@
+
+See the requirements: https://wiki.archlinux.org/index.php/Steam#Installation
+
+* enable multilib: https://wiki.archlinux.org/index.php/Official_repositories#multilib
+
+* install steam
+
+sudo pacman -S steam
+
+* install stuff:
+
+sudo pacman -S lib32-nvidia-utils libvdpau-va-gl lib32-libvdpau
+
+lib32-nvidia-utils: https://wiki.archlinux.org/index.php/Xorg#Driver_installation
+libvdpau-va-gl lib32-libvdpau: https://www.reddit.com/r/ManjaroLinux/comments/7jvu8i/you_are_missing_the_following_32bit_libraries_and/drb1mbn/
+
+---
+
+See also this for potentially missing libraries: https://wiki.archlinux.org/index.php/Steam/Troubleshooting#Debugging_shared_libraries
