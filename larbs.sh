@@ -248,7 +248,7 @@ killall pulseaudio; sudo -n "$name" pulseaudio --start
 
 mkdir -pv "$name/.vim/backup" # create vim backup file folder (config-specific)
 
-sudo ntpd -qe # synchronizes the clock manually. Read more at https://wiki.archlinux.org/index.php/System_time#Troubleshooting
+sudo ntpd -qg # synchronizes the clock manually. Read more at https://wiki.archlinux.org/index.php/System_time#Troubleshooting
 sudo hwclock --systohc # save the settings
 
 # Last message! Install complete!
