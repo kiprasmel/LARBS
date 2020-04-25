@@ -1,26 +1,24 @@
-:checkhealth provider
+# all
+
+See https://github.com/ycm-core/YouCompleteMe#linux-64-bit
+See also `:checkhealth provider`
+
+```sh
+sudo pacman -S cmake vim python python-pip python2-pip cmake rust go nodejs yarn ruby-irb mono
 
 # python
-
-:help provider-python
-sudo pacman -S python-pip
 sudo pip3 install --upgrade pynvim
-sudo pacman -S python2-pip
 sudo pip2 install --upgrade pynvim
 
 # nodejs
+yarn global add neovim
 
-npm i -g neovim
+# ruby
+gem install neovim
 
-# verify
-:checkhealth
+cd ~/.config/nvim/plugged/YouCompleteMe
+#./install.py --clang-completer --clangd-completer --go-completer --rust-completer --ts-completer --cs-completer
+./install.py --all
+```
 
-# install some stuff
-sudo pacman -S cmake rust go
-
-# cd to the directory you downloaded `YouCompleteMe` to
-# (might be different)
-# read more at https://github.com/Valloric/YouCompleteMe
-cd ~/.vim/plugged/YouCompleteMe
-
-./install.py --clang-completer --go-completer --rust-completer --ts-completer
+You might need a `~/.tern-config` file for js/ts - see: https://github.com/ain/.vim/issues/46#issuecomment-381189916
