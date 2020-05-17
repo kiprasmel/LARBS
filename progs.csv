@@ -215,3 +215,8 @@ A,phantomjs-bin,"is a small headless browser for scripting, used by termshot"
 A,termshot,"is a tool to turn your stdout to an image. Manual patches might be needed (see https://aur.archlinux.org/packages/termshot)"
 ,dolphin,"is a GUI file manager for the noobies in case you need to drag some files"
 A,google-calendar-nativefier,"wraps google calendar into a native app"
+A,dragon-drag-and-drop,"allows you to select files for dragging from the terminal"
+,autorandr,"Auto-detects connected display hardware and loads appropiate X11 setup using xrandr"
+A,mons,"A super simple multiple monitor manager"
+A,i3ipc-glib-git,"provides a C interface to i3wm",
+G,https://github.com/acrisci/i3ipc-gjs,"An improved JavaScript library to control i3wm"
