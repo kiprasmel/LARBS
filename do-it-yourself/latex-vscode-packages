@@ -1,0 +1,3 @@
+# from https://tex.stackexchange.com/questions/445521/latexindent-cant-locate-log-log4perl-pm-in-inc-you-may-need-to-install-the-l#comment1174390_445536
+sudo cpan Log::LogDispatch Log::Dispatch::File YAML::Tiny File::HomeDir
+
