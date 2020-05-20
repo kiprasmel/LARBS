@@ -220,3 +220,4 @@ A,dragon-drag-and-drop,"allows you to select files for dragging from the termina
 A,mons,"A super simple multiple monitor manager"
 A,i3ipc-glib-git,"provides a C interface to i3wm",
 G,https://github.com/acrisci/i3ipc-gjs,"An improved JavaScript library to control i3wm"
+A,deno-bin,"is a secure JS/TS runtime (much line nodejs)"
