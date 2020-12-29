@@ -1,0 +1,5 @@
+
+### custom patched because of https://bbs.archlinux.org/viewtopic.php?pid=1681270#p1681270
+# [[ -n $GPG_AGENT_INFO || $GPG == "gpg2" ]] && GPG_OPTS+=( "--batch" "--use-agent" )
+  [[ -n $GPG_AGENT_INFO || $GPG == "gpg2" ]] && GPG_OPTS+=( "--use-agent" )
+
