@@ -1,0 +1,4 @@
+cppman -c -o
+cppman -p nvim
+cppman -m true
+
