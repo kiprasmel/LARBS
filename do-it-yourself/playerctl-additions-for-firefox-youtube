@@ -1,0 +1,21 @@
+
+"playerctl breaks after next/previous"
+-> https://github.com/altdesktop/playerctl/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+youtube
+-> https://github.com/altdesktop/playerctl/issues/213
+-> https://github.com/altdesktop/playerctl/issues/213#issuecomment-758673366
+-> https://github.com/f1u77y/web-media-controller
+-> https://github.com/f1u77y/web-media-controller/issues/41
+-> https://github.com/f1u77y/web-media-controller/issues/41#issuecomment-568212696
+-> [1] https://github.com/f1u77y/web-media-controller/releases
+-> [2] https://github.com/f1u77y/wmc-mpris
+-> [2.1] https://aur.archlinux.org/packages/web-media-controller-mpris-git/
+-> [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1634190
+
+[1] provides the `.xpi` extension installer for firefox (install the extension, restart browser, go to youtube & play music, click on the extension button)
+
+[2] is the `web-media-controller-mpris` util, [2.1] is it's package in AUR
+
+[3] is the likely explanation as to why it doesn't work
+
+The [1] is enough to fix `playerctl` for me, so not sure if [2] is needed, but I haven't yet figured out how to make the keyboard keys work in place of playerctl yet.
+
