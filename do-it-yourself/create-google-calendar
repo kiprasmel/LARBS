@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/.local/cache/builds/
+cd       ~/.local/cache/builds/
+
+nativefier https://calendar.google.com --user-agent 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0' --name "Google Calendar" --internal-urls "*.google.com.*"
+
+cd GoogleCalendar-linux-x64/
+
+sudo ln -s ~/.cache/builds/GoogleCalendar-linux-x64/GoogleCalendar /usr/local/bin/google-calendar
+

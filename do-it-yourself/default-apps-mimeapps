@@ -1,0 +1,7 @@
+
+nautilus (gnome) might be named just "files" (e.g. in `selectdefaultapplication-git` (aur)) - use it
+
+might need at least re-login to apply mimeapps (~/.config/mimeapps.list)
+
+see also xdg-mime (query|default)
+

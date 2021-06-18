@@ -1,0 +1,25 @@
+
+# --lib very important!
+cabal install xmonad xmonad-contrib --lib
+
+must have the terminal that's configured in the ~/.xmonad/xmonad.hs (default xterm, I switched to st)
+
+# do
+xmonad --recompile
+
+# then, in a separate tty that's not currently running a window manager, either:
+	# a) via startx
+	# b) via ~/.xinitrc
+
+# a)
+startx /home/$USER/.xmonad/xmonad-x86_64-linux # <-- path of the compiled executable!
+
+# b)
+# in the very end of it, add:
+exec /home/$USER/.xmonad/xmonad-x86_64-linux # <-- path of the compiled executable!
+
+
+
+# xmobar
+cabal install xmobar --lib
+
