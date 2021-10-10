@@ -120,3 +120,9 @@ cd bluez-utils-compat
 makepkg -sifL --nocheck
 
 ---
+
+2021 07 11
+
+still doesn't work
+
+see also https://wiki.archlinux.org/title/Bluetooth_headset#Pairing_works,_but_connecting_does_not
