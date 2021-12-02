@@ -288,3 +288,7 @@ A,scrcpy,"is a tool to control your android device (ini idea for clipboard shari
 ,transmission-cli,"torrents ftw"
 ,transmission-qt,"torrents+qt ftw"
 ,zsh-autosuggestions,"are fish-like auto-suggestions for zsh Pog"
+,openssl,"is a cryptography tool"
+,gource,"is a tool to visualize a git repo in an animated graph"
+,clojure,"is a programming language"
+,leiningen,"is a clojure repl"
