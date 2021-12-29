@@ -1,0 +1,17 @@
+from
+https://www.reddit.com/r/linux_gaming/comments/oz822f/comment/hb5dvtw/?utm_source=share&utm_medium=web2x&context=3
+
+Also on arch, this worked for me:
+
+    close steam, obviously.
+
+    downgrade freetype
+
+sudo pacman -U https://archive.archlinux.org/packages/path/freetype2-2.10.4-1-x86_64.pkg.tar.zst
+
+3. start steam, and under account settings, enable the steam client beta
+
+4. wait for the update to finish and steam to come back up, then close it again.
+
+5. update system once more (you probably shouldn't leave freetype at the older version)
+
