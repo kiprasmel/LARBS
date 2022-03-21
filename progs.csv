@@ -292,3 +292,4 @@ A,scrcpy,"is a tool to control your android device (ini idea for clipboard shari
 ,gource,"is a tool to visualize a git repo in an animated graph"
 ,clojure,"is a programming language"
 ,leiningen,"is a clojure repl"
+,git-filter-repo,"is a git utility for rewriting history & stuff"
