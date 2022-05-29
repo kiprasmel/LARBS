@@ -294,3 +294,4 @@ A,scrcpy,"is a tool to control your android device (ini idea for clipboard shari
 ,leiningen,"is a clojure repl"
 ,git-filter-repo,"is a git utility for rewriting history & stuff"
 ,dart,"is a programming language"
+,cloc,"is a util to count lines of code"
