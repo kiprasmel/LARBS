@@ -222,9 +222,10 @@ yes | sudo -u "$name" $aurhelper -S libxft-bgra >/dev/null 2>&1
 # Install the dotfiles in the user's home directory
 putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
 rm -f "/home/$name/README.md" "/home/$name/LICENSE"
-# make git ignore deleted LICENSE & README.md files
+# make git ignore deleted files
 git update-index --assume-unchanged "/home/$name/README.md"
 git update-index --assume-unchanged "/home/$name/LICENSE"
+git update-index --assume-unchanged "/home/$name/.yarnrc"
 
 # Most important command! Get rid of the beep!
 systembeepoff
