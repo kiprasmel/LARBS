@@ -43,6 +43,8 @@ brew "wangle"
 brew "fbthrift"
 # Thrift functions for querying information from a service
 brew "fb303"
+# International domain name library (IDNA2008, Punycode and TR46)
+brew "libidn2"
 # OpenType text shaping engine
 brew "harfbuzz"
 # Color management engine supporting ICC profiles
@@ -81,6 +83,10 @@ brew "go"
 brew "sdl2_image"
 # Version Control Visualization Tool
 brew "gource"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
+# Framework for layout and rendering of i18n text
+brew "pango"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
 # GNU grep, egrep and fgrep
@@ -113,6 +119,10 @@ brew "neofetch"
 brew "neovim"
 # Platform built on V8 to build network applications
 brew "node"
+# OCaml package manager
+brew "opam"
+# Development kit for the Java programming language
+brew "openjdk"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 # 📦🚀 Fast, disk space efficient package manager
@@ -141,6 +151,8 @@ brew "tree"
 brew "watch"
 # Watch files and take action when they change
 brew "watchman"
+# Tools for the WireGuard secure network tunnel
+brew "wireguard-tools"
 # Access X11 clipboards from the command-line
 brew "xclip"
 # Command-line program for getting and setting the contents of the X selection
