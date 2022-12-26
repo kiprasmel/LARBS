@@ -11,10 +11,12 @@ tap "theseal/ssh-askpass"
 tap "wader/tap"
 # Collection of portable C++ source libraries
 brew "boost"
+# Glorious Glasgow Haskell Compilation System
+brew "ghc"
+# Command-line interface for Cabal and Hackage
+brew "cabal-install"
 # Core application library for C
 brew "glib"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
 # Statistics utility to count lines of code
 brew "cloc"
 # Cross-platform make
@@ -51,14 +53,14 @@ brew "harfbuzz"
 brew "little-cms2"
 # Image processing and image analysis library
 brew "leptonica"
-# Generate introspection data for GObject libraries
-brew "gobject-introspection"
 # Blu-Ray disc playback library for media players like VLC
 brew "libbluray"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# GNU compiler collection
+brew "gcc"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
@@ -79,6 +81,8 @@ brew "pinentry"
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Generate introspection data for GObject libraries
+brew "gobject-introspection"
 # Library for loading images as SDL surfaces and textures
 brew "sdl2_image"
 # Version Control Visualization Tool
@@ -91,6 +95,8 @@ brew "pango"
 brew "graphviz"
 # GNU grep, egrep and fgrep
 brew "grep"
+# Cross-platform program for developing Haskell projects
+brew "haskell-stack"
 # Kubernetes package manager
 brew "helm"
 # View and edit files in hexadecimal or ASCII
@@ -129,6 +135,8 @@ brew "pinentry-mac"
 brew "pnpm"
 # Python version management
 brew "pyenv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
 # Persistent key-value database, with built-in net interface
 brew "redis"
 # Search tool like grep and The Silver Searcher
@@ -137,8 +145,6 @@ brew "ripgrep"
 brew "shellcheck"
 # Python 2 and 3 compatibility utilities
 brew "six"
-# Open source continuous file synchronization application
-brew "syncthing", restart_service: true
 # User interface to the TELNET protocol
 brew "telnet"
 # Send macOS User Notifications from the command-line
@@ -183,10 +189,12 @@ cask "amethyst"
 cask "discord"
 # Text editor
 cask "emacs"
-# Web browser
-cask "firefox-developer-edition"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
 # Keyboard customizer
 cask "karabiner-elements"
+# Password manager app
+cask "keepassxc"
 # Modern and intuitive HTTP Debugging Proxy app
 cask "proxyman"
 # Move and resize windows using keyboard shortcuts or snap areas
@@ -199,6 +207,8 @@ cask "smcfancontrol"
 cask "spotify"
 # Git client
 cask "sublime-merge"
+# Real time file synchronization software
+cask "syncthing"
 # Open-source code editor
 cask "visual-studio-code"
 # Multimedia player

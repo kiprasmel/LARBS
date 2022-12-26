@@ -1,5 +1,7 @@
 prettier
 typescript
-pm2
+typescript-language-server
+ts-node-dev
 neovim
-@angular/cli
+n
+
