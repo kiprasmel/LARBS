@@ -124,7 +124,7 @@ brew "neofetch"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
-brew "node"
+brew "node", link: false
 # OCaml package manager
 brew "opam"
 # Development kit for the Java programming language
@@ -169,6 +169,8 @@ brew "youtube-dl"
 brew "yt-dlp"
 # Fish-like fast/unobtrusive autosuggestions for zsh
 brew "zsh-autosuggestions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
 # Clone all repos of a GitHub user or organization
 brew "caarlos0/tap/clone-org"
 # git repo to local editor instantly
