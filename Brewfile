@@ -117,6 +117,8 @@ brew "lighttpd"
 brew "lolcat"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
+# Node version management
+brew "n"
 # NCurses Disk Usage
 brew "ncdu"
 # Fast, highly customisable system info script
