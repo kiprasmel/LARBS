@@ -3,4 +3,7 @@ typescript
 typescript-language-server
 ts-node-dev
 neovim
+live-server@1.2.1
+node-inspector
+0x
 
