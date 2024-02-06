@@ -1,9 +1,7 @@
 tap "caarlos0/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-versions"
-tap "homebrew/core"
 tap "homebrew/services"
 tap "jarred-sumner/git-peek"
 tap "koekeishiya/formulae"
@@ -15,12 +13,16 @@ brew "little-cms2"
 brew "webp"
 # Collection of portable C++ source libraries
 brew "boost"
+# Yet another cross-platform graphical process/system monitor
+brew "bottom"
 # Glorious Glasgow Haskell Compilation System
 brew "ghc"
 # Command-line interface for Cabal and Hackage
 brew "cabal-install"
 # Core application library for C
 brew "glib"
+# Vector graphics library with cross-device output support
+brew "cairo"
 # Statistics utility to count lines of code
 brew "cloc"
 # Cross-platform make
@@ -29,6 +31,10 @@ brew "cmake"
 brew "cmatrix"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Configurable talking characters in ASCII art
+brew "cowsay"
+# Tool for browsing source code
+brew "cscope"
 # Secure runtime for JavaScript and TypeScript
 brew "deno"
 # Good-lookin' diffs with diff-highlight and more
@@ -39,6 +45,8 @@ brew "difftastic"
 brew "libxft"
 # Dynamic menu for X11
 brew "dmenu"
+# Convert text between DOS, UNIX, and Mac formats
+brew "dos2unix"
 # Select default apps for documents and URL schemes on macOS
 brew "duti"
 # Collection of reusable C++ library artifacts developed at Facebook
@@ -49,10 +57,12 @@ brew "edencommon"
 brew "fizz"
 # Modular, composable client/server abstractions framework
 brew "wangle"
-# Facebook's branch of Apache Thrift, including a new C++ server
-brew "fbthrift"
 # Thrift functions for querying information from a service
 brew "fb303"
+# Facebook's branch of Apache Thrift, including a new C++ server
+brew "fbthrift"
+# GNU compiler collection
+brew "gcc"
 # International domain name library (IDNA2008, Punycode and TR46)
 brew "libidn2"
 # OpenType text shaping engine
@@ -69,8 +79,6 @@ brew "tesseract"
 brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
-# GNU compiler collection
-brew "gcc"
 # WebDriver <-> Marionette proxy
 brew "geckodriver"
 # GitHub command-line tool
@@ -79,10 +87,14 @@ brew "gh"
 brew "git"
 # Small git utilities
 brew "git-extras"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
 # Quickly rewrite git repository history
 brew "git-filter-repo"
 # Tcl/Tk UI for the git revision control system
 brew "git-gui"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
 # GNU version of the tar archiving utility
 brew "gnu-tar"
 # GNU implementation of time utility
@@ -100,13 +112,15 @@ brew "sdl2_image"
 # Version Control Visualization Tool
 brew "gource"
 # Development kit for the Java programming language
-brew "openjdk@17"
+brew "openjdk"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
 # GNU grep, egrep and fgrep
 brew "grep"
+# GNU troff text-formatting system
+brew "groff"
 # Cross-platform program for developing Haskell projects
 brew "haskell-stack"
 # Kubernetes package manager
@@ -119,6 +133,8 @@ brew "htop"
 brew "hub"
 # C library for encoding, decoding, and manipulating JSON
 brew "jansson"
+# JSON diff and patch
+brew "jd"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Kubernetes command-line interface
@@ -129,36 +145,40 @@ brew "lf"
 brew "lighttpd", restart_service: true
 # Rainbows and unicorns in your console!
 brew "lolcat"
+# Generic machine emulator and virtualizer
+brew "qemu"
+# Lightweight Linux VMs on MacOS
+brew "macpine"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
 # Node version management
-brew "n"
+brew "n", link: false
 # NCurses Disk Usage
 brew "ncdu"
 # Fast, highly customisable system info script
 brew "neofetch"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Port scanning utility for large networks
+brew "nmap"
 # Platform built on V8 to build network applications
 brew "node", link: false
 # OCaml package manager
 brew "opam"
 # Development kit for the Java programming language
-brew "openjdk"
+brew "openjdk@17"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
-# 📦🚀 Fast, disk space efficient package manager
+# Fast, disk space efficient package manager
 brew "pnpm"
-# Python 2 and 3 compatibility utilities
-brew "six"
 # Tool for creating isolated virtual python environments
 brew "virtualenv"
 # Python package management tool
 brew "poetry"
 # Python version management
 brew "pyenv"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
 # Persistent key-value database, with built-in net interface
 brew "redis", restart_service: true
 # Search tool like grep and The Silver Searcher
@@ -167,6 +187,8 @@ brew "ripgrep"
 brew "scala"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
+# Python 2 and 3 compatibility utilities
+brew "six"
 # User interface to the TELNET protocol
 brew "telnet"
 # Send macOS User Notifications from the command-line
@@ -175,6 +197,8 @@ brew "terminal-notifier"
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Maintained ctags implementation
+brew "universal-ctags"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Watch files and take action when they change
@@ -203,7 +227,7 @@ brew "jarred-sumner/git-peek/git-peek"
 brew "koekeishiya/formulae/skhd"
 # A tiling window manager for macOS based on binary space partitioning.
 brew "koekeishiya/formulae/yabai"
-# The ssh-askpass util for MacOS
+# Passphrase dialog for use with OpenSSH in macOS
 brew "theseal/ssh-askpass/ssh-askpass"
 # jq for binary formats
 brew "wader/tap/fq"
@@ -213,18 +237,30 @@ cask "alacritty"
 cask "alfred"
 # Automatic tiling window manager similar to xmonad
 cask "amethyst"
+# Command-line tools for building and debugging Android apps
+cask "android-commandlinetools"
+# Android SDK component
+cask "android-platform-tools"
 # Voice and text chat software
 cask "discord"
 # App to build and share containerized applications and microservices
 cask "docker"
-# Text editor
-cask "emacs"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Keyboard customizer
 cask "karabiner-elements"
 # Password manager app
 cask "keepassxc"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
+# Privacy-first, open-source platform for knowledge sharing and management
+cask "logseq"
+# File system integration
+cask "macfuse"
+# Full TeX Live distribution with GUI applications
+cask "mactex"
+# Orchestrates virtual Ubuntu instances
+cask "multipass"
 # Open-source software for live streaming and screen recording
 cask "obs"
 # HTTP debugging proxy
@@ -241,8 +277,6 @@ cask "spotify"
 cask "sublime-merge"
 # Real time file synchronization software
 cask "syncthing"
-# Virtualizer for x86 and arm64 hardware
-cask "virtualbox-beta"
 # Open-source code editor
 cask "visual-studio-code"
 # Multimedia player
