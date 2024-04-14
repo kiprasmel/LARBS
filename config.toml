@@ -1,0 +1,16 @@
+baseURL = 'https://larbs.xyz/'
+languageCode = 'en-us'
+title = 'LARBS'
+
+theme = 'lugo'
+
+[params]
+  taglist = false
+  nextprev = false
+  datesinlist = false
+  authorsinlist = false
+
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
