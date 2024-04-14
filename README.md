@@ -6,7 +6,7 @@ On an Arch-based distribution as root, run the following:
 
 ```
 curl -LO larbs.xyz/larbs.sh
-sh larbs.sh
+sh larbs.sh -r https://github.com/kiprasmel/voidrice
 ```
 
 That's it.

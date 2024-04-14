@@ -1,0 +1,4 @@
+#!/bin/sh
+
+npx install-peerdeps --global eslint-config-sarpik --yarn
+

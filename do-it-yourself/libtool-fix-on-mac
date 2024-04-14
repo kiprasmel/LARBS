@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# https://github.com/nodejs/node/issues/2341#issuecomment-468507825
+
+CHANGED_FILES=''; while [[ `which libtool` != '/usr/bin/libtool' ]] ; do ORIGINAL=`which libtool`; CHANGED_FILES="$CHANGED_FILES $ORIGINAL"; mv `which libtool` `which libtool`_hidden ; done
+
+# should print /usr/bin/libtool instead of somewhere in homebrew dir
+which libtool
+

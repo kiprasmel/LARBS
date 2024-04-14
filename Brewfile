@@ -5,6 +5,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "jarred-sumner/git-peek"
 tap "koekeishiya/formulae"
+tap "riscv/riscv"
 tap "theseal/ssh-askpass"
 tap "wader/tap"
 # Color management engine supporting ICC profiles
@@ -13,14 +14,28 @@ brew "little-cms2"
 brew "webp"
 # Collection of portable C++ source libraries
 brew "boost"
+# Standard SGML representation system for technical documents
+brew "docbook"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Formatter/translator for text files to numerous formats
+brew "asciidoc"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Parser generator
+brew "bison"
 # Yet another cross-platform graphical process/system monitor
 brew "bottom"
+# Draw boxes around text
+brew "boxes"
+# (Arguably) the best yacc variant
+brew "byacc"
 # Glorious Glasgow Haskell Compilation System
 brew "ghc"
 # Command-line interface for Cabal and Hackage
 brew "cabal-install"
 # Core application library for C
-brew "glib"
+brew "glib", link: false
 # Vector graphics library with cross-device output support
 brew "cairo"
 # Statistics utility to count lines of code
@@ -45,22 +60,26 @@ brew "difftastic"
 brew "libxft"
 # Dynamic menu for X11
 brew "dmenu"
+# XML vocabulary to create presentation-neutral documents
+brew "docbook-xsl"
+# Text processing system for reStructuredText
+brew "docutils"
 # Convert text between DOS, UNIX, and Mac formats
 brew "dos2unix"
 # Select default apps for documents and URL schemes on macOS
 brew "duti"
 # Collection of reusable C++ library artifacts developed at Facebook
 brew "folly"
-# Shared library for Watchman and Eden projects
-brew "edencommon"
 # C++14 implementation of the TLS-1.3 standard
 brew "fizz"
 # Modular, composable client/server abstractions framework
 brew "wangle"
-# Thrift functions for querying information from a service
-brew "fb303"
 # Facebook's branch of Apache Thrift, including a new C++ server
 brew "fbthrift"
+# Thrift functions for querying information from a service
+brew "fb303"
+# Shared library for Watchman and Eden projects
+brew "edencommon"
 # GNU compiler collection
 brew "gcc"
 # International domain name library (IDNA2008, Punycode and TR46)
@@ -77,6 +96,8 @@ brew "pango"
 brew "tesseract"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
+# Banner-like program prints strings as ASCII art
+brew "figlet"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # WebDriver <-> Marionette proxy
@@ -85,6 +106,8 @@ brew "geckodriver"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# High-velocity, monorepo-scale workflow for Git
+brew "git-branchless"
 # Small git utilities
 brew "git-extras"
 # Interpreted, interactive, object-oriented programming language
@@ -93,16 +116,16 @@ brew "python@3.11"
 brew "git-filter-repo"
 # Tcl/Tk UI for the git revision control system
 brew "git-gui"
+# Passphrase entry dialog utilizing the Assuan protocol
+brew "pinentry"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
 # GNU version of the tar archiving utility
 brew "gnu-tar"
 # GNU implementation of time utility
 brew "gnu-time"
-# Passphrase entry dialog utilizing the Assuan protocol
-brew "pinentry"
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Generate introspection data for GObject libraries
@@ -131,54 +154,88 @@ brew "hexedit"
 brew "htop"
 # Add GitHub support to git on the command-line
 brew "hub"
+# Command-line benchmarking tool
+brew "hyperfine"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick"
+# Synchronize a maildir with an IMAP server
+brew "isync", restart_service: true
 # C library for encoding, decoding, and manipulating JSON
 brew "jansson"
 # JSON diff and patch
 brew "jd"
+# Git-compatible distributed version control system
+brew "jj"
+# Convert JPG images to ASCII
+brew "jp2a"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Terminal file manager
 brew "lf"
-# Small memory footprint, flexible web-server
-brew "lighttpd", restart_service: true
+# C XSLT library for GNOME
+brew "libxslt"
+# CLI for SQLite Databases with auto-completion and syntax highlighting
+brew "litecli"
 # Rainbows and unicorns in your console!
 brew "lolcat"
 # Generic machine emulator and virtualizer
 brew "qemu"
 # Lightweight Linux VMs on MacOS
-brew "macpine"
+brew "macpine", restart_service: true
+# Scalable distributed version control system
+brew "mercurial"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
+# Command-line music player client for mpd
+brew "mpc"
+# Music Player Daemon
+brew "mpd"
+# SMTP client that can be used as an SMTP plugin for Mutt
+brew "msmtp"
 # Node version management
 brew "n", link: false
 # NCurses Disk Usage
 brew "ncdu"
+# Ncurses-based client for the Music Player Daemon
+brew "ncmpcpp"
 # Fast, highly customisable system info script
 brew "neofetch"
+# E-mail reader with support for Notmuch, NNTP and much more
+brew "neomutt"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# RSS/Atom feed reader for text terminals
+brew "newsboat"
 # Port scanning utility for large networks
 brew "nmap"
 # Platform built on V8 to build network applications
 brew "node", link: false
+# Renders an animated, color, ANSI-text loop of the Poptart Cat
+brew "nyancat"
 # OCaml package manager
 brew "opam"
 # Development kit for the Java programming language
 brew "openjdk@17"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Password manager
+brew "pass"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
 # Fast, disk space efficient package manager
-brew "pnpm"
-# Tool for creating isolated virtual python environments
-brew "virtualenv"
+brew "pnpm", link: false
 # Python package management tool
 brew "poetry"
 # Python version management
 brew "pyenv"
+# Ruby version manager
+brew "rbenv"
 # Persistent key-value database, with built-in net interface
 brew "redis", restart_service: true
 # Search tool like grep and The Silver Searcher
@@ -193,12 +250,18 @@ brew "six"
 brew "telnet"
 # Send macOS User Notifications from the command-line
 brew "terminal-notifier"
+# Powerful free data recovery utility
+brew "testdisk"
+# Text interface for Git repositories
+brew "tig"
 # Terminal multiplexer
 brew "tmux"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
 # Maintained ctags implementation
 brew "universal-ctags"
+# Image processing library
+brew "vips"
+# Tool for creating isolated virtual python environments
+brew "virtualenv"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Watch files and take action when they change
@@ -209,14 +272,24 @@ brew "wget"
 brew "wireguard-tools"
 # Access X11 clipboards from the command-line
 brew "xclip"
+# Convert XML to another format (based on XSL or other tools)
+brew "xmlto"
 # Command-line program for getting and setting the contents of the X selection
 brew "xsel"
 # Download YouTube videos from the command-line
 brew "youtube-dl"
-# Fork of youtube-dl with additional features and fixes
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
+# Feature-rich command-line audio/video downloader
 brew "yt-dlp"
+# In terminal graphical metrics for your *nix system
+brew "zenith"
+# General-purpose lossless data-compression library
+brew "zlib"
 # Fish-like fast/unobtrusive autosuggestions for zsh
 brew "zsh-autosuggestions"
+# Feature-rich syntax highlighting for Zsh
+brew "zsh-fast-syntax-highlighting"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 # Clone all repos of a GitHub user or organization
@@ -227,6 +300,8 @@ brew "jarred-sumner/git-peek/git-peek"
 brew "koekeishiya/formulae/skhd"
 # A tiling window manager for macOS based on binary space partitioning.
 brew "koekeishiya/formulae/yabai"
+# RISC-V toolchain including gcc (with newlib), simulator (spike), and pk
+brew "riscv/riscv/riscv-tools"
 # Passphrase dialog for use with OpenSSH in macOS
 brew "theseal/ssh-askpass/ssh-askpass"
 # jq for binary formats
@@ -241,26 +316,30 @@ cask "amethyst"
 cask "android-commandlinetools"
 # Android SDK component
 cask "android-platform-tools"
+# Tools for building Android applications
+cask "android-studio"
+# Free and open-source web browser
+cask "chromium"
 # Voice and text chat software
 cask "discord"
-# App to build and share containerized applications and microservices
+# App to build and share containerised applications and microservices
 cask "docker"
+# Git client for simultaneous branches on top of your existing workflow
+cask "gitbutler"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
-# Keyboard customizer
+# Keyboard customiser
 cask "karabiner-elements"
 # Password manager app
 cask "keepassxc"
-# Free cross-platform office suite, fresh version
-cask "libreoffice"
+# Host-based application firewall
+cask "little-snitch"
 # Privacy-first, open-source platform for knowledge sharing and management
 cask "logseq"
 # File system integration
 cask "macfuse"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
-# Orchestrates virtual Ubuntu instances
-cask "multipass"
 # Open-source software for live streaming and screen recording
 cask "obs"
 # HTTP debugging proxy
@@ -275,11 +354,15 @@ cask "smcfancontrol"
 cask "spotify"
 # Git client
 cask "sublime-merge"
-# Real time file synchronization software
+# Real time file synchronisation software
 cask "syncthing"
-# Open-source code editor
-cask "visual-studio-code"
+# Code editor
+cask "visual-studio-code-insiders"
 # Multimedia player
 cask "vlc"
+# Binary releases of VS Code without MS branding/telemetry/licensing
+cask "vscodium"
 # Network protocol analyzer
 cask "wireshark"
+# Open-source version of the X.Org X Window System
+cask "xquartz"
