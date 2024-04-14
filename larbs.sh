@@ -6,6 +6,8 @@
 
 ### OPTIONS AND VARIABLES ###
 
+set -x
+
 while getopts ":a:r:b:p:h" o; do case "${o}" in
 	h) printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -p: Dependencies and programs csv (local file or url)\\n  -a: AUR helper (must have pacman-like syntax)\\n  -h: Show this message\\n" && exit ;;
 	r) dotfilesrepo=${OPTARG} && git ls-remote "$dotfilesrepo" || exit ;;
@@ -118,6 +120,7 @@ Include = /etc/pacman.d/mirrorlist-arch" >>/etc/pacman.conf
 manualinstall() {
 	# Installs $1 manually. Used only for AUR helper here.
 	# Should be run after repodir is created and var is set.
+	pacman -Qq "$1" && return 0
 	whiptail --infobox "Installing \"$1\", an AUR helper..." 7 50
 	sudo -u "$name" mkdir -p "$repodir/$1"
 	sudo -u "$name" git -C "$repodir" clone --depth 1 --single-branch \
