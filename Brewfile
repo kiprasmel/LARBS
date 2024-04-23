@@ -14,7 +14,7 @@ brew "little-cms2"
 brew "webp"
 # Collection of portable C++ source libraries
 brew "boost"
-# Standard SGML representation system for technical documents
+# Standard XML representation system for technical documents
 brew "docbook"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
@@ -38,6 +38,22 @@ brew "cabal-install"
 brew "glib", link: false
 # Vector graphics library with cross-device output support
 brew "cairo"
+# GNU compiler collection
+brew "gcc"
+# International domain name library (IDNA2008, Punycode and TR46)
+brew "libidn2"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Image processing and image analysis library
+brew "leptonica"
+# Blu-Ray disc playback library for media players like VLC
+brew "libbluray"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# OCR (Optical Character Recognition) engine
+brew "tesseract"
+# Play, record, convert, and stream audio and video
+brew "ffmpeg"
 # Statistics utility to count lines of code
 brew "cloc"
 # Cross-platform make
@@ -80,22 +96,6 @@ brew "fbthrift"
 brew "fb303"
 # Shared library for Watchman and Eden projects
 brew "edencommon"
-# GNU compiler collection
-brew "gcc"
-# International domain name library (IDNA2008, Punycode and TR46)
-brew "libidn2"
-# OpenType text shaping engine
-brew "harfbuzz"
-# Image processing and image analysis library
-brew "leptonica"
-# Blu-Ray disc playback library for media players like VLC
-brew "libbluray"
-# Framework for layout and rendering of i18n text
-brew "pango"
-# OCR (Optical Character Recognition) engine
-brew "tesseract"
-# Play, record, convert, and stream audio and video
-brew "ffmpeg"
 # Banner-like program prints strings as ASCII art
 brew "figlet"
 # Command-line fuzzy finder written in Go
@@ -326,6 +326,8 @@ cask "discord"
 cask "docker"
 # Git client for simultaneous branches on top of your existing workflow
 cask "gitbutler"
+# Web browser
+cask "google-chrome"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Keyboard customiser
