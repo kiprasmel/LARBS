@@ -35,7 +35,7 @@ brew "ghc"
 # Command-line interface for Cabal and Hackage
 brew "cabal-install"
 # Core application library for C
-brew "glib", link: false
+brew "glib"
 # Vector graphics library with cross-device output support
 brew "cairo"
 # GNU compiler collection
@@ -88,6 +88,8 @@ brew "duti"
 brew "folly"
 # C++14 implementation of the TLS-1.3 standard
 brew "fizz"
+# QUIC transport protocol implementation
+brew "mvfst"
 # Modular, composable client/server abstractions framework
 brew "wangle"
 # Facebook's branch of Apache Thrift, including a new C++ server
@@ -96,6 +98,8 @@ brew "fbthrift"
 brew "fb303"
 # Shared library for Watchman and Eden projects
 brew "edencommon"
+# Process Management Interface for HPC environments
+brew "pmix"
 # Banner-like program prints strings as ASCII art
 brew "figlet"
 # Command-line fuzzy finder written in Go
@@ -138,6 +142,8 @@ brew "gource"
 brew "openjdk"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
+# Library to render SVG files using Cairo
+brew "librsvg"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
 # GNU grep, egrep and fgrep
@@ -146,6 +152,8 @@ brew "grep"
 brew "groff"
 # Cross-platform program for developing Haskell projects
 brew "haskell-stack"
+# Command-line interface for Hetzner Cloud
+brew "hcloud"
 # Kubernetes package manager
 brew "helm"
 # View and edit files in hexadecimal or ASCII
@@ -180,12 +188,16 @@ brew "libxslt"
 brew "litecli"
 # Rainbows and unicorns in your console!
 brew "lolcat"
+# Text-based web browser
+brew "lynx"
 # Generic machine emulator and virtualizer
 brew "qemu"
 # Lightweight Linux VMs on MacOS
 brew "macpine", restart_service: true
 # Scalable distributed version control system
 brew "mercurial"
+# GDI+-compatible API on non-Windows operating systems
+brew "mono-libgdiplus"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
 # Command-line music player client for mpd
@@ -214,10 +226,14 @@ brew "nmap"
 brew "node", link: false
 # Renders an animated, color, ANSI-text loop of the Poptart Cat
 brew "nyancat"
+# Create, run, and share large language models (LLMs)
+brew "ollama"
 # OCaml package manager
 brew "opam"
 # Development kit for the Java programming language
 brew "openjdk@17"
+# Google's Operations Research tools
+brew "or-tools"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
 # Display directories as trees (with optional color/HTML output)
@@ -234,6 +250,8 @@ brew "pnpm", link: false
 brew "poetry"
 # Python version management
 brew "pyenv"
+# Tools for and transforming and inspecting PDF files
+brew "qpdf"
 # Ruby version manager
 brew "rbenv"
 # Persistent key-value database, with built-in net interface
@@ -262,6 +280,8 @@ brew "universal-ctags"
 brew "vips"
 # Tool for creating isolated virtual python environments
 brew "virtualenv"
+# Command-line interface to the WakaTime api
+brew "wakatime-cli"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Watch files and take action when they change
@@ -324,10 +344,16 @@ cask "chromium"
 cask "discord"
 # App to build and share containerised applications and microservices
 cask "docker"
+# Developer platform
+cask "dotnet-sdk"
+# Install and update your Eclipse Development Environment
+cask "eclipse-installer"
 # Git client for simultaneous branches on top of your existing workflow
 cask "gitbutler"
 # Web browser
 cask "google-chrome"
+# Hex editor for reverse engineers
+cask "imhex"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Keyboard customiser
@@ -346,8 +372,12 @@ cask "mactex"
 cask "obs"
 # HTTP debugging proxy
 cask "proxyman"
+# Environment for statistical computing and graphics
+cask "r"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# Data science software focusing on R and Python
+cask "rstudio"
 # MySQL/MariaDB database management
 cask "sequel-ace"
 # Sets a minimum speed for built-in fans
@@ -359,7 +389,7 @@ cask "sublime-merge"
 # Real time file synchronisation software
 cask "syncthing"
 # Code editor
-cask "visual-studio-code-insiders"
+cask "visual-studio-code@insiders"
 # Multimedia player
 cask "vlc"
 # Binary releases of VS Code without MS branding/telemetry/licensing
