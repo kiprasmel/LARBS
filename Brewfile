@@ -16,6 +16,8 @@ brew "webp"
 brew "boost"
 # Standard XML representation system for technical documents
 brew "docbook"
+# Command-line interface for SQLite
+brew "sqlite"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
 # Formatter/translator for text files to numerous formats
@@ -60,6 +62,10 @@ brew "cloc"
 brew "cmake"
 # Console Matrix
 brew "cmatrix"
+# General-purpose scripting language
+brew "php"
+# Dependency Manager for PHP
+brew "composer"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Configurable talking characters in ASCII art
@@ -78,6 +84,8 @@ brew "libxft"
 brew "dmenu"
 # XML vocabulary to create presentation-neutral documents
 brew "docbook-xsl"
+# Command-line tool for DigitalOcean
+brew "doctl"
 # Text processing system for reStructuredText
 brew "docutils"
 # Convert text between DOS, UNIX, and Mac formats
@@ -102,6 +110,8 @@ brew "edencommon"
 brew "pmix"
 # Banner-like program prints strings as ASCII art
 brew "figlet"
+# Real-time software synthesizer based on the SoundFont 2 specs
+brew "fluid-synth"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # WebDriver <-> Marionette proxy
@@ -114,8 +124,6 @@ brew "git"
 brew "git-branchless"
 # Small git utilities
 brew "git-extras"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.11"
 # Quickly rewrite git repository history
 brew "git-filter-repo"
 # Tcl/Tk UI for the git revision control system
@@ -138,8 +146,6 @@ brew "gobject-introspection"
 brew "sdl2_image"
 # Version Control Visualization Tool
 brew "gource"
-# Development kit for the Java programming language
-brew "openjdk"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
 # Library to render SVG files using Cairo
@@ -148,6 +154,8 @@ brew "librsvg"
 brew "graphviz"
 # GNU grep, egrep and fgrep
 brew "grep"
+# Utilities for manipulating PostScript documents
+brew "psutils"
 # GNU troff text-formatting system
 brew "groff"
 # Cross-platform program for developing Haskell projects
@@ -164,6 +172,8 @@ brew "htop"
 brew "hub"
 # Command-line benchmarking tool
 brew "hyperfine"
+# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
+brew "libheif"
 # Tools and libraries to manipulate images in many formats
 brew "imagemagick"
 # Synchronize a maildir with an IMAP server
@@ -207,7 +217,7 @@ brew "mpd"
 # SMTP client that can be used as an SMTP plugin for Mutt
 brew "msmtp"
 # Node version management
-brew "n", link: false
+brew "n"
 # NCurses Disk Usage
 brew "ncdu"
 # Ncurses-based client for the Music Player Daemon
@@ -248,14 +258,22 @@ brew "pipx"
 brew "pnpm", link: false
 # Python package management tool
 brew "poetry"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Object-relational database system
+brew "postgresql@14"
+# Object-relational database system
+brew "postgresql@16"
 # Python version management
 brew "pyenv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
 # Tools for and transforming and inspecting PDF files
 brew "qpdf"
 # Ruby version manager
 brew "rbenv"
 # Persistent key-value database, with built-in net interface
-brew "redis", restart_service: true
+brew "redis"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # JVM-based programming language
