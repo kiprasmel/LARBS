@@ -8,6 +8,8 @@ tap "koekeishiya/formulae"
 tap "riscv/riscv"
 tap "theseal/ssh-askpass"
 tap "wader/tap"
+# Run your GitHub Actions locally
+brew "act"
 # Color management engine supporting ICC profiles
 brew "little-cms2"
 # Image format providing lossless and lossy compression for web images
@@ -16,8 +18,6 @@ brew "webp"
 brew "boost"
 # Standard XML representation system for technical documents
 brew "docbook"
-# Command-line interface for SQLite
-brew "sqlite"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
 # Formatter/translator for text files to numerous formats
@@ -42,6 +42,8 @@ brew "glib"
 brew "cairo"
 # GNU compiler collection
 brew "gcc"
+# Robust and modular log colorizer
+brew "ccze"
 # International domain name library (IDNA2008, Punycode and TR46)
 brew "libidn2"
 # OpenType text shaping engine
@@ -68,7 +70,7 @@ brew "php"
 brew "composer"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# Configurable talking characters in ASCII art
+# Apjanke's fork of the classic cowsay project
 brew "cowsay"
 # Tool for browsing source code
 brew "cscope"
@@ -90,14 +92,14 @@ brew "doctl"
 brew "docutils"
 # Convert text between DOS, UNIX, and Mac formats
 brew "dos2unix"
+# .NET Core
+brew "dotnet", link: false
 # Select default apps for documents and URL schemes on macOS
 brew "duti"
 # Collection of reusable C++ library artifacts developed at Facebook
 brew "folly"
 # C++14 implementation of the TLS-1.3 standard
 brew "fizz"
-# QUIC transport protocol implementation
-brew "mvfst"
 # Modular, composable client/server abstractions framework
 brew "wangle"
 # Facebook's branch of Apache Thrift, including a new C++ server
@@ -106,6 +108,8 @@ brew "fbthrift"
 brew "fb303"
 # Shared library for Watchman and Eden projects
 brew "edencommon"
+# Run arbitrary commands when files change
+brew "entr"
 # Process Management Interface for HPC environments
 brew "pmix"
 # Banner-like program prints strings as ASCII art
@@ -177,7 +181,7 @@ brew "libheif"
 # Tools and libraries to manipulate images in many formats
 brew "imagemagick"
 # Synchronize a maildir with an IMAP server
-brew "isync", restart_service: true
+brew "isync", restart_service: :changed
 # C library for encoding, decoding, and manipulating JSON
 brew "jansson"
 # JSON diff and patch
@@ -203,7 +207,7 @@ brew "lynx"
 # Generic machine emulator and virtualizer
 brew "qemu"
 # Lightweight Linux VMs on MacOS
-brew "macpine", restart_service: true
+brew "macpine", restart_service: :changed
 # Scalable distributed version control system
 brew "mercurial"
 # GDI+-compatible API on non-Windows operating systems
@@ -216,6 +220,8 @@ brew "mpc"
 brew "mpd"
 # SMTP client that can be used as an SMTP plugin for Mutt
 brew "msmtp"
+# QUIC transport protocol implementation
+brew "mvfst"
 # Node version management
 brew "n"
 # NCurses Disk Usage
@@ -254,8 +260,6 @@ brew "pass"
 brew "pinentry-mac"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
-# Fast, disk space efficient package manager
-brew "pnpm", link: false
 # Python package management tool
 brew "poetry"
 # PDF rendering library (based on the xpdf-3.0 code base)
@@ -266,10 +270,14 @@ brew "postgresql@14"
 brew "postgresql@16"
 # Python version management
 brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
 # Tools for and transforming and inspecting PDF files
 brew "qpdf"
+# Software environment for statistical computing
+brew "r", link: false
 # Ruby version manager
 brew "rbenv"
 # Persistent key-value database, with built-in net interface
@@ -344,6 +352,10 @@ brew "riscv/riscv/riscv-tools"
 brew "theseal/ssh-askpass/ssh-askpass"
 # jq for binary formats
 brew "wader/tap/fq"
+# Open source colour effects manager for Razer devices
+cask "1kc-razer"
+# View, print, and comment on PDF documents
+cask "adobe-acrobat-reader"
 # GPU-accelerated terminal emulator
 cask "alacritty"
 # Application launcher and productivity software
@@ -356,8 +368,8 @@ cask "android-commandlinetools"
 cask "android-platform-tools"
 # Tools for building Android applications
 cask "android-studio"
-# Free and open-source web browser
-cask "chromium"
+# Write, edit, and chat about your code with AI
+cask "cursor"
 # Voice and text chat software
 cask "discord"
 # App to build and share containerised applications and microservices
@@ -378,6 +390,8 @@ cask "iterm2"
 cask "karabiner-elements"
 # Password manager app
 cask "keepassxc"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
 # Host-based application firewall
 cask "little-snitch"
 # Privacy-first, open-source platform for knowledge sharing and management
@@ -386,8 +400,14 @@ cask "logseq"
 cask "macfuse"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
+# Open source implementation of Microsoft's .NET Framework
+cask "mono-mdk-for-visual-studio"
 # Open-source software for live streaming and screen recording
 cask "obs"
+# Android file transfer
+cask "openmtp"
+# Collaboration platform for API development
+cask "postman"
 # HTTP debugging proxy
 cask "proxyman"
 # Environment for statistical computing and graphics
@@ -406,7 +426,9 @@ cask "spotify"
 cask "sublime-merge"
 # Real time file synchronisation software
 cask "syncthing"
-# Code editor
+# Integrated development environment
+cask "visual-studio"
+# Open-source code editor
 cask "visual-studio-code@insiders"
 # Multimedia player
 cask "vlc"

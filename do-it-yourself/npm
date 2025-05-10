@@ -8,4 +8,6 @@ live-server@1.2.1
 node-inspector
 json-diff
 git-jump
+qrcode
+pnpm
 
