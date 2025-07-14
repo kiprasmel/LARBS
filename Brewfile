@@ -1,7 +1,5 @@
 tap "caarlos0/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask-drivers"
-tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "jarred-sumner/git-peek"
 tap "koekeishiya/formulae"
@@ -320,6 +318,8 @@ brew "wireguard-tools"
 brew "xclip"
 # Convert XML to another format (based on XSL or other tools)
 brew "xmlto"
+# Command-line XML and HTML beautifier and content extractor
+brew "xq"
 # Command-line program for getting and setting the contents of the X selection
 brew "xsel"
 # Download YouTube videos from the command-line
@@ -368,12 +368,14 @@ cask "android-commandlinetools"
 cask "android-platform-tools"
 # Tools for building Android applications
 cask "android-studio"
+# Allows connection to a computer remotely
+cask "anydesk"
 # Write, edit, and chat about your code with AI
 cask "cursor"
 # Voice and text chat software
 cask "discord"
 # App to build and share containerised applications and microservices
-cask "docker"
+cask "docker-desktop"
 # Developer platform
 cask "dotnet-sdk"
 # Install and update your Eclipse Development Environment
@@ -411,7 +413,7 @@ cask "postman"
 # HTTP debugging proxy
 cask "proxyman"
 # Environment for statistical computing and graphics
-cask "r"
+cask "r-app"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Data science software focusing on R and Python
@@ -422,10 +424,12 @@ cask "sequel-ace"
 cask "smcfancontrol"
 # Music streaming service
 cask "spotify"
+# Video game digital distribution service
+cask "steam"
 # Git client
 cask "sublime-merge"
 # Real time file synchronisation software
-cask "syncthing"
+cask "syncthing-app"
 # Integrated development environment
 cask "visual-studio"
 # Open-source code editor
@@ -435,6 +439,6 @@ cask "vlc"
 # Binary releases of VS Code without MS branding/telemetry/licensing
 cask "vscodium"
 # Network protocol analyzer
-cask "wireshark"
+cask "wireshark-app"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
