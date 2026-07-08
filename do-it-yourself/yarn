@@ -1,6 +1,8 @@
 #!/bin/sh
 
+which yarn || npm i -g yarn
+
 DIRNAME="$(dirname "$0")"
 
-cat "$DIRNAME/npm" | xargs yarn global add
+cat "$DIRNAME/npm" | xargs yarn global add -E
 
