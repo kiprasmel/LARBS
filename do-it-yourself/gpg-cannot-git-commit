@@ -1,0 +1,2 @@
+ln -s /opt/homebrew/bin/gpg /opt/homebrew/bin/gpg2
+

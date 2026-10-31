@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -x
+
+ln -s $fp/git/contrib/git-jump/git-jump $sc/
+

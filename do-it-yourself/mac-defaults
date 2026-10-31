@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -x
+
+# https://mac-key-repeat.zaymon.dev/
+defaults write -g InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 2
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
+echo "need to logout/reboot now."
+

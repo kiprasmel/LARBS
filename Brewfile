@@ -1,6 +1,5 @@
 tap "caarlos0/tap"
-tap "homebrew/bundle"
-tap "homebrew/services"
+tap "jackielii/tap"
 tap "jarred-sumner/git-peek"
 tap "koekeishiya/formulae"
 tap "riscv/riscv"
@@ -16,12 +15,16 @@ brew "webp"
 brew "boost"
 # Standard XML representation system for technical documents
 brew "docbook"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Formatter/translator for text files to numerous formats
 brew "asciidoc"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Bash Automated Testing System
+brew "bats-core"
 # Parser generator
 brew "bison"
 # Yet another cross-platform graphical process/system monitor
@@ -40,8 +43,6 @@ brew "glib"
 brew "cairo"
 # GNU compiler collection
 brew "gcc"
-# Robust and modular log colorizer
-brew "ccze"
 # International domain name library (IDNA2008, Punycode and TR46)
 brew "libidn2"
 # OpenType text shaping engine
@@ -62,12 +63,14 @@ brew "cloc"
 brew "cmake"
 # Console Matrix
 brew "cmatrix"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# OpenAI's coding agent that runs in your terminal
+brew "codex"
 # General-purpose scripting language
 brew "php"
 # Dependency Manager for PHP
 brew "composer"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
 # Apjanke's fork of the classic cowsay project
 brew "cowsay"
 # Tool for browsing source code
@@ -114,6 +117,8 @@ brew "pmix"
 brew "figlet"
 # Real-time software synthesizer based on the SoundFont 2 specs
 brew "fluid-synth"
+# X11 implementation of the Remote Desktop Protocol (RDP)
+brew "freerdp"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # WebDriver <-> Marionette proxy
@@ -130,6 +135,8 @@ brew "git-extras"
 brew "git-filter-repo"
 # Tcl/Tk UI for the git revision control system
 brew "git-gui"
+# GitHub Model Context Protocol server for AI tools
+brew "github-mcp-server"
 # Passphrase entry dialog utilizing the Assuan protocol
 brew "pinentry"
 # GNU Pretty Good Privacy (PGP) package
@@ -244,12 +251,16 @@ brew "nyancat"
 brew "ollama"
 # OCaml package manager
 brew "opam"
+# Open Fortinet client for PPP+TLS VPN tunnel services
+brew "openfortivpn"
 # Development kit for the Java programming language
 brew "openjdk@17"
 # Google's Operations Research tools
 brew "or-tools"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
+# Shell command parallelization utility
+brew "parallel"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Password manager
@@ -272,6 +283,8 @@ brew "pyenv"
 brew "pyenv-virtualenv"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
 # Tools for and transforming and inspecting PDF files
 brew "qpdf"
 # Software environment for statistical computing
@@ -279,15 +292,15 @@ brew "r", link: false
 # Ruby version manager
 brew "rbenv"
 # Persistent key-value database, with built-in net interface
-brew "redis"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
+brew "redis", restart_service: :changed
 # JVM-based programming language
 brew "scala"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Python 2 and 3 compatibility utilities
 brew "six"
+# VPN based on IPsec
+brew "strongswan"
 # User interface to the TELNET protocol
 brew "telnet"
 # Send macOS User Notifications from the command-line
@@ -300,6 +313,8 @@ brew "tig"
 brew "tmux"
 # Maintained ctags implementation
 brew "universal-ctags"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
 # Image processing library
 brew "vips"
 # Tool for creating isolated virtual python environments
@@ -322,8 +337,8 @@ brew "xmlto"
 brew "xq"
 # Command-line program for getting and setting the contents of the X selection
 brew "xsel"
-# Download YouTube videos from the command-line
-brew "youtube-dl"
+# JavaScript package manager
+brew "yarn"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # Feature-rich command-line audio/video downloader
@@ -368,8 +383,6 @@ cask "android-commandlinetools"
 cask "android-platform-tools"
 # Tools for building Android applications
 cask "android-studio"
-# Allows connection to a computer remotely
-cask "anydesk"
 # Write, edit, and chat about your code with AI
 cask "cursor"
 # Voice and text chat software
@@ -380,6 +393,8 @@ cask "docker-desktop"
 cask "dotnet-sdk"
 # Install and update your Eclipse Development Environment
 cask "eclipse-installer"
+# Collaborative team software
+cask "figma"
 # Git client for simultaneous branches on top of your existing workflow
 cask "gitbutler"
 # Web browser
@@ -406,6 +421,8 @@ cask "mactex"
 cask "mono-mdk-for-visual-studio"
 # Open-source software for live streaming and screen recording
 cask "obs"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
 # Android file transfer
 cask "openmtp"
 # Collaboration platform for API development
@@ -416,10 +433,8 @@ cask "proxyman"
 cask "r-app"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
-# Data science software focusing on R and Python
-cask "rstudio"
-# MySQL/MariaDB database management
-cask "sequel-ace"
+# Team communication and collaboration software
+cask "slack"
 # Sets a minimum speed for built-in fans
 cask "smcfancontrol"
 # Music streaming service
@@ -440,5 +455,7 @@ cask "vlc"
 cask "vscodium"
 # Network protocol analyzer
 cask "wireshark-app"
+# View output from scripts in the menu bar
+cask "xbar"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
