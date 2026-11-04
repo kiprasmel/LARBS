@@ -14,8 +14,14 @@ That's it. `larbs.sh` detects the OS and runs [`arch.sh`](arch.sh) or [`macos.sh
 ### macOS
 
 On macOS, `larbs.sh` clones LARBS into `~/LARBS` and runs `macos.sh`, which installs homebrew and the
-[Brewfile](Brewfile), the dotfiles, and system settings. It's safe to re-run, and prints the remaining
-manual steps at the end.
+[Brewfile](Brewfile), the dotfiles, the VS Code settings, and system settings. It's safe to re-run, and
+prints the remaining manual steps at the end.
+
+[`vscode.sh`](vscode.sh) applies the [VS Code settings gist](https://gist.github.com/kiprasmel/de9160a0602463fb752f2d84d7aa4fd8)
+(settings, keybindings, extensions) to every installed flavor: VSCodium, Cursor (incl. its Terminal profile),
+VS Code, VS Code Insiders, Windsurf. When a file has local changes that aren't in the gist, it asks whether to
+override it (w/ a backup), merge (3-way against the gist version it last applied, leaving conflict markers to
+resolve, e.g. by an agent), or skip; `-m` answers upfront. It also works on its own, on Linux too.
 
 Spaces: yabai can only focus spaces with its scripting addition, which needs SIP (partially) disabled.
 The mode is picked from the SIP status (override with `-s native` or `-s yabai`), and can be switched anytime:

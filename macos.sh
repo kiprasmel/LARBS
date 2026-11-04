@@ -143,7 +143,8 @@ All done! Still manual:
 - Switch the dotfiles remote to ssh: config remote set-url origin git@github.com:kiprasmel/voidrice.git
 - ~/forkprojects/xbar-plugins/ -> Weather/sunrise-sunset/ ln -s, System/disable-sleep/install.sh
 - Remove unneeded deps that create login items: adobe, alpine, macfuse, mbsync, redis-server
-- Spaces mode is \`$spaces\`. Switch w/ $larbsdir/macos-spaces-native.sh or macos-spaces-yabai-no-sip.sh"
+- Spaces mode is \`$spaces\`. Switch w/ $larbsdir/macos-spaces-native.sh or macos-spaces-yabai-no-sip.sh
+- Resolve any conflicts vscode.sh listed above. Re-run $larbsdir/vscode.sh to sync w/ the gist later."
 }
 
 ### THE ACTUAL SCRIPT ###
@@ -157,6 +158,9 @@ installbrew || error "Failed to install homebrew."
 	echo "Some Brewfile entries failed to install, see above. Continuing." >&2
 
 installdotfiles || error "Failed to install the dotfiles."
+
+# vscodium/cursor/vscode settings, keybindings & extensions from the gist. Asks about local changes.
+sh "$larbsdir/vscode.sh"
 
 setupiterm
 
