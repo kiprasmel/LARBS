@@ -2,14 +2,28 @@
 
 ## Installation:
 
-On an Arch-based distribution as root, run the following:
+On an Arch-based distribution as root, or on macOS as your user, run the following:
 
 ```
-curl -LO larbs.xyz/larbs.sh
-sh larbs.sh -r https://github.com/kiprasmel/voidrice
+curl -LO https://raw.githubusercontent.com/kiprasmel/LARBS/master/larbs.sh
+sh larbs.sh
 ```
 
-That's it.
+That's it. `larbs.sh` detects the OS and runs [`arch.sh`](arch.sh) or [`macos.sh`](macos.sh).
+
+### macOS
+
+On macOS, `larbs.sh` clones LARBS into `~/LARBS` and runs `macos.sh`, which installs homebrew and the
+[Brewfile](Brewfile), the dotfiles, and system settings. It's safe to re-run, and prints the remaining
+manual steps at the end.
+
+Spaces: yabai can only focus spaces with its scripting addition, which needs SIP (partially) disabled.
+The mode is picked from the SIP status (override with `-s native` or `-s yabai`), and can be switched anytime:
+
+- [`macos-spaces-native.sh`](macos-spaces-native.sh): SIP enabled. Native macOS shortcuts:
+  ctrl+1..0 = desktop 1-10, alt+1..6 = desktop 11-16.
+- [`macos-spaces-yabai-no-sip.sh`](macos-spaces-yabai-no-sip.sh): SIP disabled. yabai via skhd:
+  ctrl+1..0 = space 1-10, alt+1..0 = 11-20, ctrl+alt+1..0 = 21-30.
 
 ## What is LARBS?
 
@@ -57,7 +71,7 @@ quotes around the whole description to ensure correct parsing.
 The script is extensively divided into functions for easier readability and
 trouble-shooting. Most everything should be self-explanatory.
 
-The main work is done by the `installationloop` function, which iterates
+On Arch, the main work is done by `arch.sh`'s `installationloop` function, which iterates
 through the programs file and determines based on the tag of each program,
 which commands to run to install it. You can easily add new methods of
 installations and tags as well.
