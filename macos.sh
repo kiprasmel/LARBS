@@ -87,18 +87,18 @@ systemsettings() {
 	defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
 
 	# keyboard shortcuts:
-	#  - mission control / application windows:
-	#    - swap control + up/down arr to option + up/down arr;
-	#    - move left/right a space: swap control + left/right arr, to option + left/right arr;
-	#    - using both, will allow control to be used in tmux to move panes and switch panes.
+	#  - mission control / application windows: swap control + up/down arr to option + up/down arr;
+	#  - move left/right a space: disabled (spaces are switched w/ ctrl/alt+N),
+	#    so option + left/right arr reach tmux (move window to earlier/later number);
+	#  - frees control + arrows for tmux to move panes and switch panes.
 	# ids: 32 mission control, 33 application windows, 79 move left a space, 81 move right a space;
 	# 34/35/80/82 are their shift (slow-mo) twins, which system settings changes alongside.
 	# arrow keys carry the fn flag, hence fn+opt / fn+opt+shift masks.
 	opt_arrow=8912896 shift_opt_arrow=9043968
 	hotkey 32 true 126 $opt_arrow; hotkey 34 true 126 $shift_opt_arrow # up
 	hotkey 33 true 125 $opt_arrow; hotkey 35 true 125 $shift_opt_arrow # down
-	hotkey 79 true 123 $opt_arrow; hotkey 80 true 123 $shift_opt_arrow # left
-	hotkey 81 true 124 $opt_arrow; hotkey 82 true 124 $shift_opt_arrow # right
+	hotkey 79 false 123 $opt_arrow; hotkey 80 false 123 $shift_opt_arrow # left
+	hotkey 81 false 124 $opt_arrow; hotkey 82 false 124 $shift_opt_arrow # right
 	applyhotkeys
 
 	# optional: crossfade instead of slide when switching desktops (not really shorter, just feels snappier).
