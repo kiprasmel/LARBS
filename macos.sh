@@ -56,17 +56,20 @@ setupiterm() {
 	# - NOT ~/.config/iterm2: that's iterm's own runtime dir (AppSupport symlink, sockets),
 	#   and the submodule's core.worktree points at ~/.config/iterm, so git never sees files put in iterm2
 	# - iterm must be quit while switching, otherwise it can save its in-memory default settings
-	#   over the dotfiles plist. so this is skipped when running inside iterm.
+	#   over the dotfiles plist. so this is skipped when running inside (our own, running) iterm.
 	# verify: `git -C ~/.config/iterm status` stays clean
 	# hotkey windows: opt+u = scratchpad, opt+a = calc.
-	# karabiner swaps cmd<->opt only for the external keyboards listed in ~/.config/karabiner, not the built-in one
+	# karabiner swaps cmd<->opt on non-apple keyboards, not the built-in one
 	[ "$(defaults read com.googlecode.iterm2 PrefsCustomFolder 2>/dev/null)" = "$HOME/.config/iterm" ] &&
 		[ "$(defaults read com.googlecode.iterm2 LoadPrefsFromCustomFolder 2>/dev/null)" = 1 ] && return
-	if [ "$TERM_PROGRAM" = iTerm.app ] || [ "$LC_TERMINAL" = iTerm2 ]; then
-		echo "Skipping iTerm settings: they need iTerm quit, so re-run from Terminal.app." >&2
-		return
+	if pgrep -x -u "$(id -u)" iTerm2 >/dev/null; then
+		# the env vars alone aren't enough: they're also set e.g. over ssh or sudo from iterm
+		if [ "$TERM_PROGRAM" = iTerm.app ] || [ "$LC_TERMINAL" = iTerm2 ]; then
+			echo "Skipping iTerm settings: they need iTerm quit, so re-run from Terminal.app." >&2
+			return
+		fi
+		osascript -e 'quit app "iTerm"' && sleep 2
 	fi
-	pgrep -x -u "$(id -u)" iTerm2 >/dev/null && osascript -e 'quit app "iTerm"' && sleep 2
 	defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm"
 	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 }
@@ -79,7 +82,7 @@ setupssh() {
 systemsettings() {
 	# dock: disable rearrange spaces by recent use (v annoying)
 	defaults write com.apple.dock mru-spaces -bool false
-	killall Dock
+	killall Dock 2>/dev/null # not running when not logged in at the screen
 
 	# desktop & dock: click wallpaper to reveal desktop -> only in stage manager
 	defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
