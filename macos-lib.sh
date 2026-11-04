@@ -22,7 +22,10 @@ hotkey() { # <symbolichotkey id> <enabled: true|false> <keycode> <modifier mask>
 }
 
 # Applies changed shortcuts w/o log-out.
+# Only for the user logged in at the screen: it applies them to that session, so for another user
+# (e.g. via sudo) it'd override the logged in user's shortcuts. Others get them at their next login.
 applyhotkeys() {
+	[ "$(/usr/bin/stat -f %Su /dev/console)" = "$(id -un)" ] || return 0
 	/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 }
 

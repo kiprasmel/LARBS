@@ -11,7 +11,7 @@ set -x
 export TERM=ansi
 
 while getopts ":a:r:b:p:h" o; do case "${o}" in
-	h) printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -p: Dependencies and programs csv (local file or url)\\n  -a: AUR helper (must have pacman-like syntax)\\n  -h: Show this message\\n" && exit ;;
+	h) printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -b: Dotfiles branch. Default: master\\n  -p: Dependencies and programs csv (local file or url)\\n  -a: AUR helper (must have pacman-like syntax)\\n  -h: Show this message\\n" && exit ;;
 	r) dotfilesrepo=${OPTARG} && git ls-remote "$dotfilesrepo" || exit ;;
 	b) repobranch=${OPTARG} ;;
 	p) progsfile=${OPTARG} ;;
@@ -180,17 +180,40 @@ installationloop() {
 	done </tmp/progs.csv
 }
 
-putgitrepo() {
-	# Downloads a gitrepo $1 and places the files in $2 only overwriting conflicts
+dotfiles() {
+	# Same as the `config` function from the dotfiles' aliasrc.
+	# -C: `submodule` refuses to run from outside the work tree.
+	sudo -u "$name" git -C "/home/$name" --git-dir="/home/$name/.dotfiles" --work-tree="/home/$name" "$@"
+}
+
+installdotfiles() {
+	# Same as macos.sh: a regular clone w/ .git moved to ~/.dotfiles, so origin/* remote-tracking branches
+	# work (unlike a bare clone). See https://github.com/kiprasmel/voidrice#managing-these-dotfiles
+	# Only on first run, since checking out into ~ overwrites conflicting files.
 	whiptail --infobox "Downloading and installing config files..." 7 60
-	[ -z "$3" ] && branch="master" || branch="$repobranch"
-	dir=$(mktemp -d)
-	[ ! -d "$2" ] && mkdir -p "$2"
-	chown "$name":wheel "$dir" "$2"
-	sudo -u "$name" git -C "$repodir" clone --depth 1 \
-		--single-branch --no-tags -q --recursive -b "$branch" \
-		--recurse-submodules "$1" "$dir"
-	sudo -u "$name" cp -rfT "$dir" "$2"
+	if [ ! -d "/home/$name/.dotfiles" ]; then
+		dir=$(mktemp -d)
+		chown "$name":wheel "$dir"
+		sudo -u "$name" git clone -q -b "$repobranch" "$dotfilesrepo" "$dir/dotfiles" || return 1
+		sudo -u "$name" mv "$dir/dotfiles/.git" "/home/$name/.dotfiles"
+		rm -rf "$dir"
+		dotfiles reset -q --hard || return 1
+	fi
+	dotfiles submodule -q update --init --recursive
+}
+
+vscodesettings() {
+	# vscodium/vscode settings, keybindings & extensions from the gist, w/ LARBS' vscode.sh:
+	# the one next to this script in a LARBS clone, otherwise downloaded (larbs.sh runs a downloaded arch.sh).
+	whiptail --infobox "Applying the vscode settings..." 7 60
+	scriptdir="$(cd "$(dirname "$0")" && pwd)"
+	vscodesh="$scriptdir/vscode.sh"
+	if [ ! -d "$scriptdir/.git" ] || [ ! -f "$vscodesh" ]; then
+		vscodesh="$(mktemp -d)/vscode.sh"
+		curl -Ls "https://raw.githubusercontent.com/kiprasmel/LARBS/master/vscode.sh" >"$vscodesh" || return 1
+		chmod 755 "$(dirname "$vscodesh")" && chmod 644 "$vscodesh"
+	fi
+	sudo -u "$name" env HOME="/home/$name" sh "$vscodesh"
 }
 
 vimplugininstall() {
@@ -326,16 +349,13 @@ $aurhelper -Y --save --devel
 installationloop
 
 # Install the dotfiles in the user's home directory.
-putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
-# Remove unnecessary files.
-deletable_files=("/home/$name/README.md" "/home/$name/LICENSE"  "/home/$name/.yarnrc")
-rm -f "${deletable_files[@]}"
-# Make git ignore deleted files.
-git update-index --assume-unchanged "${deletable_files[@]}"
-# We don't delete the .git repository,
-# so that users realize there's an ability to track the dotfiles with git,
-# and ideally follow the suggested way of doing it:
-# https://github.com/kiprasmel/voidrice#managing-these-dotfiles
+installdotfiles || error "Failed to install the dotfiles."
+# Remove the repo's own files from ~. skip-worktree, so `config status` doesn't list them as deleted.
+for f in README.md LICENSE .yarnrc; do
+	[ -e "/home/$name/$f" ] && dotfiles update-index --skip-worktree "$f" && rm -f "/home/$name/$f"
+done
+
+vscodesettings
 
 # Install vim plugins if not alread present.
 [ ! -f "/home/$name/.config/nvim/autoload/plug.vim" ] && vimplugininstall

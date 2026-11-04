@@ -6,22 +6,26 @@ On an Arch-based distribution as root, or on macOS as your user, run the followi
 
 ```
 curl -LO https://raw.githubusercontent.com/kiprasmel/LARBS/master/larbs.sh
-sh larbs.sh
+chmod +x larbs.sh
+./larbs.sh
 ```
 
-That's it. `larbs.sh` detects the OS and runs [`arch.sh`](arch.sh) or [`macos.sh`](macos.sh).
+That's it. `larbs.sh` detects the OS and runs [`arch.sh`](arch.sh) or [`macos.sh`](macos.sh), passing the options through.
+
+Both install the dotfiles w/ the git dir in `~/.dotfiles` (see [managing them](https://github.com/kiprasmel/voidrice#managing-these-dotfiles)),
+and the VS Code settings w/ [`vscode.sh`](vscode.sh).
 
 ### macOS
 
-On macOS, `larbs.sh` clones LARBS into `~/LARBS` and runs `macos.sh`, which installs homebrew and the
-[Brewfile](Brewfile), the dotfiles, the VS Code settings, and system settings. It's safe to re-run, and
-prints the remaining manual steps at the end.
+On macOS, `larbs.sh` clones LARBS into `~/LARBS` (unless it's run from a clone already) and runs `macos.sh`,
+which installs homebrew and the [Brewfile](Brewfile), the dotfiles, the VS Code settings, and system settings.
+It's safe to re-run, and prints the remaining manual steps at the end.
 
 [`vscode.sh`](vscode.sh) applies the [VS Code settings gist](https://gist.github.com/kiprasmel/de9160a0602463fb752f2d84d7aa4fd8)
-(settings, keybindings, extensions) to every installed flavor: VSCodium, Cursor, VS Code, VS Code Insiders,
+(settings, keybindings, extensions) to every installed flavor: VSCodium, Cursor, VS Code (incl. Code - OSS), VS Code Insiders,
 Windsurf. When a file has local changes that aren't in the gist, it asks whether to
 override it (w/ a backup), merge (3-way against the gist version it last applied, leaving conflict markers to
-resolve, e.g. by an agent), or skip; `-m` answers upfront. It also works on its own, on Linux too.
+resolve, e.g. by an agent), or skip; `-m` answers upfront. It also works on its own, e.g. to sync w/ the gist later.
 
 Spaces: yabai can only focus spaces with its scripting addition, which needs SIP (partially) disabled.
 The mode is picked from the SIP status (override with `-s native` or `-s yabai`), and can be switched anytime:
@@ -46,10 +50,12 @@ By default, LARBS uses the programs [here in progs.csv](progs.csv) and installs
 but you can easily change this by either modifying the default variables at the
 beginning of the script or giving the script one of these options:
 
-- `-r`: custom dotfiles repository (URL)
-- `-p`: custom programs list/dependencies (local file or URL)
+- `-r`: custom dotfiles repository (URL), e.g. your fork. Arch & macOS
+- `-b`: dotfiles branch (Arch)
+- `-p`: custom programs list/dependencies (local file or URL) (Arch)
 - `-a`: a custom AUR helper (must be able to install with `-S` unless you
-  change the relevant line in the script
+  change the relevant line in the script (Arch)
+- `-s`: spaces mode, `native` or `yabai` (macOS)
 
 ### The `progs.csv` list
 

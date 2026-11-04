@@ -66,7 +66,7 @@ setupiterm() {
 		echo "Skipping iTerm settings: they need iTerm quit, so re-run from Terminal.app." >&2
 		return
 	fi
-	pgrep -x iTerm2 >/dev/null && osascript -e 'quit app "iTerm"' && sleep 2
+	pgrep -x -u "$(id -u)" iTerm2 >/dev/null && osascript -e 'quit app "iTerm"' && sleep 2
 	defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm"
 	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 }
@@ -127,8 +127,8 @@ setupspaces() {
 }
 
 startservices() {
-	pgrep -x yabai >/dev/null || yabai --start-service
-	pgrep -x skhd >/dev/null || skhd --start-service
+	pgrep -x -u "$(id -u)" yabai >/dev/null || yabai --start-service
+	pgrep -x -u "$(id -u)" skhd >/dev/null || skhd --start-service
 }
 
 finalize() {

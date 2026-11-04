@@ -46,7 +46,14 @@ flavorinfo() { # <flavor> -> "<user data dir>:<cli>"
 	case "$1" in
 	vscodium) echo "VSCodium:codium" ;;
 	cursor) echo "Cursor:cursor" ;;
-	vscode) echo "Code:code" ;;
+	vscode)
+		# arch's `code` package is Code - OSS, w/ its own user data dir (named after nameShort)
+		if grep -qs '"nameShort": *"Code - OSS"' /usr/lib/code/product.json; then
+			echo "Code - OSS:code"
+		else
+			echo "Code:code"
+		fi
+		;;
 	vscode-insiders) echo "Code - Insiders:code-insiders" ;;
 	windsurf) echo "Windsurf:windsurf" ;;
 	*) return 1 ;;
