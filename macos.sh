@@ -145,7 +145,7 @@ All done! Still manual:
 - Log out and back in (key repeat).
 - Allow yabai and skhd in system settings > privacy & security > accessibility.
 - Add the ssh key to github (\`gh auth login\`), and into ~/.ssh/config for Host github.com.
-- Switch the dotfiles remote to ssh: config remote set-url origin git@github.com:kiprasmel/voidrice.git
+- Switch the dotfiles remote to ssh: config remote set-url origin $(echo "$dotfilesrepo" | sed -E 's|^https://([^/]+)/|git@\1:|')
 - ~/forkprojects/xbar-plugins/ -> Weather/sunrise-sunset/ ln -s, System/disable-sleep/install.sh
 - Remove unneeded deps that create login items: adobe, alpine, macfuse, mbsync, redis-server
 - Spaces mode is \`$spaces\`. Switch w/ $larbsdir/macos-spaces-native.sh or macos-spaces-yabai-no-sip.sh
@@ -158,8 +158,7 @@ All done! Still manual:
 
 installbrew || error "Failed to install homebrew."
 
-# Brewfile is read from the cwd.
-(cd "$larbsdir" && ./do-it-yourself/homebrew-install.sh) ||
+brew bundle install --file="$larbsdir/Brewfile" ||
 	echo "Some Brewfile entries failed to install, see above. Continuing." >&2
 
 installdotfiles || error "Failed to install the dotfiles."
