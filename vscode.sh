@@ -62,11 +62,12 @@ fetchgist() {
 	fi
 }
 
-jsoncdiff() { # <local> <gist>
-	# Lists what's in the local jsonc file but not in the gist's (keys w/ other values, or array entries),
-	# so local settings that the gist already has don't count as changes. Fails if there's anything.
-	python3 -I - "$1" "$2" <<'EOF'
-import json, re, sys
+jsonc() { # <diff <local> <gist> | themeextensions <settings.json> <extensions dir>>
+	# diff: lists what's in the local jsonc file but not in the gist's (keys w/ other values, or array entries),
+	#   so local settings that the gist already has don't count as changes. Fails if there's anything.
+	# themeextensions: lists the installed extensions that provide the color/icon/product icon themes the settings use.
+	python3 -I - "$@" <<'EOF'
+import glob, json, os, re, sys
 
 def load(path):
     # jsonc -> json: drop comments & trailing commas, outside of strings.
@@ -91,22 +92,42 @@ def load(path):
     text = "".join(segments) + re.sub(r",(\s*[}\]])", r"\1", "".join(rest))
     return json.loads(text) if text.strip() else None
 
-try:
-    local, gist = load(sys.argv[1]), load(sys.argv[2])
-except Exception as e:
-    print(f"can't parse ({e})")
-    sys.exit(1)
+def diff(local_path, gist_path):
+    try:
+        local, gist = load(local_path), load(gist_path)
+    except Exception as e:
+        print(f"can't parse ({e})")
+        return 1
+    if local is None:
+        changes = []
+    elif isinstance(local, dict) and isinstance(gist, dict):
+        changes = [("changed: " if k in gist else "local only: ") + k for k in local if gist.get(k, object()) != local[k]]
+    elif isinstance(local, list) and isinstance(gist, list):
+        changes = ["local only: " + json.dumps(e, separators=(",", ":")) for e in local if e not in gist]
+    else:
+        changes = ["different structure"]
+    print("\n".join(changes))
+    return 1 if changes else 0
 
-if local is None:
-    changes = []
-elif isinstance(local, dict) and isinstance(gist, dict):
-    changes = [("changed: " if k in gist else "local only: ") + k for k in local if gist.get(k, object()) != local[k]]
-elif isinstance(local, list) and isinstance(gist, list):
-    changes = ["local only: " + json.dumps(e, separators=(",", ":")) for e in local if e not in gist]
-else:
-    changes = ["different structure"]
-print("\n".join(changes))
-sys.exit(1 if changes else 0)
+def themeextensions(settings_path, extensions_dir):
+    try:
+        settings = load(settings_path) or {}
+    except Exception:
+        return 0
+    contributes = {"colorTheme": "themes", "iconTheme": "iconThemes", "productIconTheme": "productIconThemes"}
+    wanted = {kind: settings.get("workbench." + setting) for setting, kind in contributes.items()}
+    for path in glob.glob(os.path.join(extensions_dir, "*", "package.json")):
+        try:
+            pkg = json.load(open(path, encoding="utf-8"))
+        except Exception:
+            continue
+        themes = pkg.get("contributes", {})
+        if any(theme and any(theme in (t.get("id"), t.get("label")) for t in themes.get(kind, []))
+               for kind, theme in wanted.items()):
+            print(f'{pkg["publisher"]}.{pkg["name"]}')
+    return 0
+
+sys.exit({"diff": diff, "themeextensions": themeextensions}[sys.argv[1]](*sys.argv[2:]))
 EOF
 }
 
@@ -147,17 +168,17 @@ applyfile() { # <file> <gist file> <base>
 		return
 	elif [ -f "$base" ] && cmp -s "$file" "$base"; then
 		cp "$src" "$file" && echo "  $name: updated"
-	elif jsoncdiff "$file" "$src" >/dev/null; then
+	elif jsonc diff "$file" "$src" >/dev/null; then
 		echo "  $name: local settings are all in the gist already, replacing"
 		backup "$file"
 		cp "$src" "$file"
 	else
 		if [ -f "$base" ]; then
 			echo "  $name: has local changes since last applied, and the gist changed too. Local changes:"
-			jsoncdiff "$file" "$base" | head -20 | sed 's/^/    /'
+			jsonc diff "$file" "$base" | head -20 | sed 's/^/    /'
 		else
 			echo "  $name: has local changes that aren't in the gist:"
-			jsoncdiff "$file" "$src" | head -20 | sed 's/^/    /'
+			jsonc diff "$file" "$src" | head -20 | sed 's/^/    /'
 		fi
 		choose oms "$file" "$src"
 		case "$choice" in
@@ -231,9 +252,9 @@ for p in json.load(open(sys.argv[1])).get("userDataProfiles", []):
 	for f in settings.json keybindings.json; do
 		[ "$(readlink "$profiledir/$f")" = "$userdir/$f" ] && echo "  Terminal profile $f: linked" && continue
 		if [ -s "$profiledir/$f" ] && ! cmp -s "$profiledir/$f" "$userdir/$f" &&
-			! jsoncdiff "$profiledir/$f" "$userdir/$f" >/dev/null; then
+			! jsonc diff "$profiledir/$f" "$userdir/$f" >/dev/null; then
 			echo "  Terminal profile $f: has local changes that aren't in the default profile's:"
-			jsoncdiff "$profiledir/$f" "$userdir/$f" | head -20 | sed 's/^/    /'
+			jsonc diff "$profiledir/$f" "$userdir/$f" | head -20 | sed 's/^/    /'
 			choose os "$profiledir/$f" "$userdir/$f"
 			if [ "$choice" != override ]; then
 				echo "    skipped"
@@ -247,9 +268,10 @@ for p in json.load(open(sys.argv[1])).get("userDataProfiles", []):
 		ln -sfn "$userdir/$f" "$profiledir/$f" && echo "  Terminal profile $f: linked to the default profile's"
 	done
 	[ -n "$noextensions" ] && return
-	# Its extensions are listed as install commands in the md.
+	# Its extensions are listed as install commands in the md. Plus the theme ones, since the settings are shared.
 	# shellcheck disable=SC2046 # one id or path per line, w/o spaces
-	installextensions cursor Terminal $(sed -n "/^ *cursor --profile Terminal --install-extension /{s|||;s|^~/|$HOME/|;p;}" "$gistdir/profile-terminal.md")
+	installextensions cursor Terminal $(sed -n "/^ *cursor --profile Terminal --install-extension /{s|||;s|^~/|$HOME/|;p;}" "$gistdir/profile-terminal.md") \
+		$(jsonc themeextensions "$userdir/settings.json" "$HOME/.cursor/extensions")
 }
 
 ### THE ACTUAL SCRIPT ###
@@ -265,13 +287,15 @@ for flavor; do
 	echo "$dir:"
 	applyfile "$appsupport/$dir/User/settings.json" "$gistdir/settings.json" "$statedir/$flavor/settings.json"
 	applyfile "$appsupport/$dir/User/keybindings.json" "$gistdir/$keybindings" "$statedir/$flavor/keybindings.json"
-	[ "$flavor" = cursor ] && cursorterminalprofile "$appsupport/$dir/User"
-	[ -n "$noextensions" ] || ! command -v "$flavorcli" >/dev/null 2>&1 && continue
-	extensions="$(sed -n 's/.*"publisherId": *"\([^"]*\)".*/\1/p' "$gistdir/extensions.json")"
-	# anysphere.* are cursor's own (remote ssh/containers).
-	[ "$flavor" = cursor ] || extensions="$(echo "$extensions" | grep -v '^anysphere\.')"
-	# shellcheck disable=SC2086 # one id per line
-	installextensions "$flavorcli" "" $extensions
+	if [ -z "$noextensions" ] && command -v "$flavorcli" >/dev/null 2>&1; then
+		extensions="$(sed -n 's/.*"publisherId": *"\([^"]*\)".*/\1/p' "$gistdir/extensions.json")"
+		# anysphere.* are cursor's own (remote ssh/containers).
+		[ "$flavor" = cursor ] || extensions="$(echo "$extensions" | grep -v '^anysphere\.')"
+		# shellcheck disable=SC2086 # one id per line
+		installextensions "$flavorcli" "" $extensions
+	fi
+	# After the default profile's extensions, which provide the themes its Terminal profile needs.
+	[ "$flavor" != cursor ] || cursorterminalprofile "$appsupport/$dir/User"
 done
 
 [ -z "$skipped" ] || echo "
