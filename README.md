@@ -21,6 +21,9 @@ On macOS, `larbs.sh` clones LARBS into `~/LARBS` (unless it's run from a clone a
 which installs homebrew and the [Brewfile](Brewfile), the dotfiles, the VS Code settings, and system settings.
 It's safe to re-run, and prints the remaining manual steps at the end.
 
+To test changes, [`testing/macos.sh`](testing/macos.sh) runs the working tree as a throwaway macOS user and checks
+the result. Its header lists what's expected to fail there.
+
 [`vscode.sh`](vscode.sh) applies the [VS Code settings gist](https://gist.github.com/kiprasmel/de9160a0602463fb752f2d84d7aa4fd8)
 (settings, keybindings, extensions) to every installed flavor: VSCodium, Cursor, VS Code (incl. Code - OSS), VS Code Insiders,
 Windsurf. When a file has local changes that aren't in the gist, it asks whether to

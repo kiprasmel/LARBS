@@ -49,6 +49,25 @@ skhdspaces() { # <yabai|native>
 	skhd --reload 2>/dev/null # not running yet on a fresh install, then it loads the config on start
 }
 
+# Makes iterm load its settings from the dotfiles submodule, ~/.config/iterm. iterm must not be running:
+# when it quits, it can save its in-memory settings to that folder, over the dotfiles' plist.
+itermprefs() {
+	defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm"
+	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+}
+
+# Quits iterm, waits until it's gone (up to 2 min, e.g. for its "quit w/ running sessions?" dialog), then itermprefs.
+quitiTermthenprefs() {
+	osascript -e 'quit app "iTerm"' >/dev/null
+	n=0
+	while pgrep -x -u "$(id -u)" iTerm2 >/dev/null; do
+		[ $n -ge 120 ] && return 1
+		sleep 1
+		n=$((n + 1))
+	done
+	itermprefs
+}
+
 # yabai's scripting addition (needed to focus spaces) requires filesystem protections & debugging restrictions off.
 sipallowsyabai() {
 	csrutil status | grep -qE "status: disabled|Filesystem Protections: disabled" &&

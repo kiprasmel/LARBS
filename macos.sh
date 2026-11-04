@@ -55,23 +55,28 @@ setupiterm() {
 	# Load settings from the dotfiles submodule, ~/.config/iterm
 	# - NOT ~/.config/iterm2: that's iterm's own runtime dir (AppSupport symlink, sockets),
 	#   and the submodule's core.worktree points at ~/.config/iterm, so git never sees files put in iterm2
-	# - iterm must be quit while switching, otherwise it can save its in-memory default settings
-	#   over the dotfiles plist. so this is skipped when running inside (our own, running) iterm.
+	# - iterm must be quit while switching (see itermprefs). when running inside it, quitting it ends
+	#   this script too, so this runs last, asks first, and leaves the rest to a detached helper.
 	# verify: `git -C ~/.config/iterm status` stays clean
 	# hotkey windows: opt+u = scratchpad, opt+a = calc.
 	# karabiner swaps cmd<->opt on non-apple keyboards, not the built-in one
 	[ "$(defaults read com.googlecode.iterm2 PrefsCustomFolder 2>/dev/null)" = "$HOME/.config/iterm" ] &&
 		[ "$(defaults read com.googlecode.iterm2 LoadPrefsFromCustomFolder 2>/dev/null)" = 1 ] && return
-	if pgrep -x -u "$(id -u)" iTerm2 >/dev/null; then
-		# the env vars alone aren't enough: they're also set e.g. over ssh or sudo from iterm
-		if [ "$TERM_PROGRAM" = iTerm.app ] || [ "$LC_TERMINAL" = iTerm2 ]; then
-			echo "Skipping iTerm settings: they need iTerm quit, so re-run from Terminal.app." >&2
-			return
-		fi
-		osascript -e 'quit app "iTerm"' && sleep 2
+	if ! pgrep -x -u "$(id -u)" iTerm2 >/dev/null; then
+		itermprefs
+	# the env vars alone aren't enough: they're also set e.g. over ssh, or sudo from iterm
+	elif [ "$TERM_PROGRAM" = iTerm.app ] || [ "$LC_TERMINAL" = iTerm2 ]; then
+		answer=
+		(: </dev/tty) 2>/dev/null && printf "\nQuit iTerm now, to load its settings from the dotfiles? This window closes too, so read the above first. [y/N] " >/dev/tty &&
+			read -r answer </dev/tty
+		# shellcheck disable=SC2016 # $1 is for the inner sh
+		case "$answer" in
+		[yY]*) nohup sh -c '. "$1/macos-lib.sh" && quitiTermthenprefs' _ "$larbsdir" >/dev/null 2>&1 & ;;
+		*) echo "Skipped the iTerm settings. Re-run from Terminal.app to apply them." ;;
+		esac
+	else
+		quitiTermthenprefs || echo "iTerm didn't quit, skipped its settings. Re-run to apply them." >&2
 	fi
-	defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm"
-	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 }
 
 setupssh() {
@@ -162,8 +167,6 @@ installdotfiles || error "Failed to install the dotfiles."
 # vscodium/cursor/vscode settings, keybindings & extensions from the gist. Asks about local changes.
 sh "$larbsdir/vscode.sh"
 
-setupiterm
-
 setupssh
 
 systemsettings
@@ -173,3 +176,6 @@ setupspaces
 startservices
 
 finalize
+
+# Last, since it may quit the iterm this runs in.
+setupiterm
