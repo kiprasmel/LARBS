@@ -42,20 +42,20 @@ error() {
 	exit 1
 }
 
-flavorinfo() { # <flavor> -> "<user data dir>:<cli>"
+flavorinfo() { # <flavor> -> "<user data dir>:<cli>:<data folder in ~, w/ argv.json & extensions>"
 	case "$1" in
-	vscodium) echo "VSCodium:codium" ;;
-	cursor) echo "Cursor:cursor" ;;
+	vscodium) echo "VSCodium:codium:.vscode-oss" ;;
+	cursor) echo "Cursor:cursor:.cursor" ;;
 	vscode)
 		# arch's `code` package is Code - OSS, w/ its own user data dir (named after nameShort)
 		if grep -qs '"nameShort": *"Code - OSS"' /usr/lib/code/product.json; then
-			echo "Code - OSS:code"
+			echo "Code - OSS:code:.vscode-oss"
 		else
-			echo "Code:code"
+			echo "Code:code:.vscode"
 		fi
 		;;
-	vscode-insiders) echo "Code - Insiders:code-insiders" ;;
-	windsurf) echo "Windsurf:windsurf" ;;
+	vscode-insiders) echo "Code - Insiders:code-insiders:.vscode-insiders" ;;
+	windsurf) echo "Windsurf:windsurf:.windsurf" ;;
 	*) return 1 ;;
 	esac
 }
@@ -68,15 +68,19 @@ fetchgist() {
 	fi
 }
 
-jsonc() { # diff <local> <gist>
-	# Lists what's in the local jsonc file but not in the gist's (keys w/ other values, or array entries),
-	# so local settings that the gist already has don't count as changes. Fails if there's anything.
+jsonc() { # <diff <local> <gist> | proposedapi <argv.json> <extension id>>
+	# diff: lists what's in the local jsonc file but not in the gist's (keys w/ other values, or array entries),
+	#   so local settings that the gist already has don't count as changes. Fails if there's anything.
+	# proposedapi: adds the extension to argv.json's "enable-proposed-api" (permanent command line flags),
+	#   keeping the comments. Prints "added" if it did.
 	python3 -I - "$@" <<'EOF'
-import json, re, sys
+import json, os, re, sys
 
 def load(path):
+    return loads(open(path, encoding="utf-8").read())
+
+def loads(s):
     # jsonc -> json: drop comments & trailing commas, outside of strings.
-    s = open(path, encoding="utf-8").read()
     segments, rest, i = [], [], 0
     while i < len(s):
         if s[i] == '"':
@@ -114,7 +118,22 @@ def diff(local_path, gist_path):
     print("\n".join(changes))
     return 1 if changes else 0
 
-sys.exit({"diff": diff}[sys.argv[1]](*sys.argv[2:]))
+def proposedapi(path, ext):
+    s = open(path, encoding="utf-8").read() if os.path.exists(path) else "{\n}\n"
+    ids = (loads(s) or {}).get("enable-proposed-api")
+    if isinstance(ids, list) and ext in ids:
+        return 0
+    if isinstance(ids, list):
+        key = re.compile(r'^(\s*"enable-proposed-api"\s*:\s*\[)\s*', re.M)
+        s = key.sub(lambda m: m.group(1) + json.dumps(ext) + (", " if ids else ""), s, count=1)
+    else:
+        s = re.sub(r"^\{", "{\n\t" + '"enable-proposed-api": [' + json.dumps(ext) + "],", s, count=1, flags=re.M)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    open(path, "w", encoding="utf-8").write(s)
+    print("added")
+    return 0
+
+sys.exit({"diff": diff, "proposedapi": proposedapi}[sys.argv[1]](*sys.argv[2:]))
 EOF
 }
 
@@ -214,6 +233,39 @@ installextensions() { # <cli> <extension ids...>
 	[ -z "$failed" ] || echo "  extensions that failed to install, e.g. not in this flavor's marketplace:$failed"
 }
 
+# kiprasmel.terminal-title-context isn't on any marketplace, so it's packaged from its repo. It exposes the
+# focused terminal's title to keybindings, e.g. the gist's Enter = newline / Cmd+Enter = submit in claude,
+# via a proposed api, which needs argv.json's enable-proposed-api (instead of passing the flag on each launch).
+termtitleid="kiprasmel.terminal-title-context"
+termtitlerepo="https://github.com/kiprasmel/vscode-ext-terminal-title"
+termtitledir="${XDG_CACHE_HOME:-$HOME/.cache}/larbs/vscode-ext-terminal-title"
+
+termtitlevsix() { # -> sets $termtitlevsix, once per run
+	[ -n "$termtitlevsix" ] && return
+	if [ -d "$termtitledir/.git" ]; then
+		git -C "$termtitledir" pull -q --ff-only || echo "Couldn't update $termtitlerepo, using the cached one." >&2
+	else
+		git clone -q "$termtitlerepo" "$termtitledir" || return 1
+	fi
+	# a .vsix is a zip w/ the extension in extension/. it has no dependencies, so no need for node & vsce.
+	pkg="$(mktemp -d)"
+	mkdir "$pkg/extension" && cp "$termtitledir/package.json" "$termtitledir/extension.js" "$pkg/extension/" &&
+		(cd "$pkg" && python3 -I -m zipfile -c terminal-title-context.vsix extension) &&
+		termtitlevsix="$pkg/terminal-title-context.vsix"
+}
+
+installtermtitle() { # <cli> <data folder>
+	termtitlevsix || { echo "  couldn't get $termtitleid from $termtitlerepo" && return; }
+	version="$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' "$termtitledir/package.json" | head -1)"
+	if ! "$1" --list-extensions --show-versions 2>/dev/null | grep -qixF "$termtitleid@$version"; then
+		"$1" --install-extension "$termtitlevsix" --force >/dev/null 2>&1 &&
+			echo "  extension installed: $termtitleid@$version" ||
+			echo "  extension failed to install: $termtitleid"
+	fi
+	[ "$(jsonc proposedapi "$HOME/$2/argv.json" "$termtitleid")" = added ] &&
+		echo "  ~/$2/argv.json: enabled the proposed api for $termtitleid (takes effect after a restart)"
+}
+
 ### THE ACTUAL SCRIPT ###
 
 fetchgist || error "Failed to fetch the gist: $gist"
@@ -221,7 +273,8 @@ fetchgist || error "Failed to fetch the gist: $gist"
 [ $# -eq 0 ] && set -- vscodium cursor vscode vscode-insiders windsurf
 for flavor; do
 	info="$(flavorinfo "$flavor")" || { echo "Unknown flavor: $flavor" >&2 && continue; }
-	dir="${info%:*}" flavorcli="${info##*:}"
+	dir="${info%%:*}" rest="${info#*:}"
+	flavorcli="${rest%%:*}" datafolder="${rest#*:}"
 	# Installed: has its cli or its user data dir.
 	command -v "$flavorcli" >/dev/null 2>&1 || [ -d "$appsupport/$dir" ] || continue
 	echo "$dir:"
@@ -233,6 +286,7 @@ for flavor; do
 		[ "$flavor" = cursor ] || extensions="$(echo "$extensions" | grep -v '^anysphere\.')"
 		# shellcheck disable=SC2086 # one id per line
 		installextensions "$flavorcli" $extensions
+		installtermtitle "$flavorcli" "$datafolder"
 	fi
 done
 
