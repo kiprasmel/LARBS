@@ -86,19 +86,16 @@ systemsettings() {
 	# desktop & dock: no margins around tiled windows
 	defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
 
-	# keyboard shortcuts:
-	#  - mission control / application windows: swap control + up/down arr to option + up/down arr;
-	#  - move left/right a space: disabled (spaces are switched w/ ctrl/alt+N),
-	#    so option + left/right arr reach tmux (move window to earlier/later number);
-	#  - frees control + arrows for tmux to move panes and switch panes.
-	# ids: 32 mission control, 33 application windows, 79 move left a space, 81 move right a space;
-	# 34/35/80/82 are their shift (slow-mo) twins, which system settings changes alongside.
-	# arrow keys carry the fn flag, hence fn+opt / fn+opt+shift masks.
-	opt_arrow=8912896 shift_opt_arrow=9043968
-	hotkey 32 true 126 $opt_arrow; hotkey 34 true 126 $shift_opt_arrow # up
-	hotkey 33 true 125 $opt_arrow; hotkey 35 true 125 $shift_opt_arrow # down
-	hotkey 79 false 123 $opt_arrow; hotkey 80 false 123 $shift_opt_arrow # left
-	hotkey 81 false 124 $opt_arrow; hotkey 82 false 124 $shift_opt_arrow # right
+	# keyboard shortcuts, to leave ctrl + arrows to tmux (ctrl+up/down: previous/next window,
+	# ctrl/opt+left/right: move the window to an earlier/later number):
+	#  - mission control / application windows: ctrl + up/down arr -> opt + up/down arr;
+	#  - move left/right a space: disabled, so opt + left/right reach tmux too.
+	#    spaces are switched w/ ctrl/opt+N instead (macos-spaces-*.sh).
+	opt=$((mod_fn + mod_opt)) shiftopt=$((mod_fn + mod_opt + mod_shift))
+	hotkey $hk_missioncontrol true $key_up $opt; hotkey $hk_missioncontrol_shift true $key_up $shiftopt
+	hotkey $hk_appwindows true $key_down $opt; hotkey $hk_appwindows_shift true $key_down $shiftopt
+	hotkey $hk_spaceleft false $key_left $opt; hotkey $hk_spaceleft_shift false $key_left $shiftopt
+	hotkey $hk_spaceright false $key_right $opt; hotkey $hk_spaceright_shift false $key_right $shiftopt
 	applyhotkeys
 
 	# optional: crossfade instead of slide when switching desktops (not really shorter, just feels snappier).

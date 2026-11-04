@@ -1,5 +1,20 @@
 # Shared helpers for the macos*.sh scripts. Sourced, not run.
 
+# Keyboard shortcut ids (com.apple.symbolichotkeys).
+# The _shift ones are the slow-motion twins (same shortcut + shift), which system settings changes alongside.
+hk_missioncontrol=32 hk_missioncontrol_shift=34
+hk_appwindows=33 hk_appwindows_shift=35
+hk_spaceleft=79 hk_spaceleft_shift=80
+hk_spaceright=81 hk_spaceright_shift=82
+hk_desktop1=118 # "switch to desktop N" is hk_desktop1 + N - 1, up to desktop 16
+
+# Keycodes.
+key_1=18 key_2=19 key_3=20 key_4=21 key_5=23 key_6=22 key_7=26 key_8=28 key_9=25 key_0=29
+key_left=123 key_right=124 key_down=125 key_up=126
+
+# Modifier masks. Add them up to combine. Arrow keys always carry mod_fn.
+mod_shift=131072 mod_ctrl=262144 mod_opt=524288 mod_fn=8388608
+
 # Sets a keyboard shortcut (system settings > keyboard > keyboard shortcuts).
 hotkey() { # <symbolichotkey id> <enabled: true|false> <keycode> <modifier mask>
 	defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
@@ -15,11 +30,10 @@ applyhotkeys() {
 # desktop 1-10 = ctrl+1..0, desktop 11-16 = alt+1..6 (macos maxes out at 16).
 # numbering spans displays (1-10 on 1st, 11-20 on 2nd); only works for desktops that exist.
 desktophotkeys() { # <enabled: true|false>
-	ctrl=262144 alt=524288
 	n=0
-	for key in 18 19 20 21 23 22 26 28 25 29; do # keycodes for 1..9,0
-		hotkey $((118 + n)) "$1" $key $ctrl
-		[ $n -lt 6 ] && hotkey $((128 + n)) "$1" $key $alt
+	for key in $key_1 $key_2 $key_3 $key_4 $key_5 $key_6 $key_7 $key_8 $key_9 $key_0; do
+		hotkey $((hk_desktop1 + n)) "$1" "$key" $mod_ctrl
+		[ $n -lt 6 ] && hotkey $((hk_desktop1 + 10 + n)) "$1" "$key" $mod_opt
 		n=$((n + 1))
 	done
 	applyhotkeys
